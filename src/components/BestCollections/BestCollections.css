@@ -1,0 +1,129 @@
+.r-container {
+  position: relative;
+}
+
+.flexColStart {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flexEndStart {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+.view-all {
+  display: none;
+}
+
+.flexCenter {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.r-head {
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+}
+
+.border {
+  border: 1px solid rgb(211, 210, 210);
+  border-radius: 10px;
+}
+.r-card {
+  gap: 0.3rem;
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: max-content;
+  margin: auto;
+  transition: all 300ms ease-in;
+}
+
+.r-card > img {
+  width: 100%;
+  max-width: 12rem;
+}
+
+.r-card > :nth-child(2) {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.r-card > :nth-child(3) {
+  font-size: 0.8rem;
+}
+
+.r-card > :nth-child(4) {
+  font-size: 0.7rem;
+  width: 12rem;
+}
+
+.old-price {
+  margin-right: 12px;
+  color: orange;
+  display: inline;
+}
+
+.r-price {
+  display: flex;
+  gap: 10px;
+}
+
+.wishlist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 22px;
+}
+
+.media-view:hover {
+  text-decoration: underline;
+}
+
+.r-card:hover {
+  scale: 1.025;
+  cursor: pointer;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0% rgba(136, 160, 255, 0.46) 217.91%
+  );
+  box-shadow: 0px 72px 49px -51px rgba(136, 160, 255, 0.46);
+}
+
+@media (max-width: 640px) {
+  .r-head {
+    align-items: center;
+  }
+
+  .r-button {
+    position: initial;
+  }
+
+  .view-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .media-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .media-view {
+    display: none;
+  }
+}

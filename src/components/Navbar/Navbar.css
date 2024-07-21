@@ -1,0 +1,112 @@
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+}
+
+.first-flex {
+  flex: 1;
+}
+
+.logoFlex1 {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  gap: 3px;
+  color: black;
+  cursor: pointer;
+}
+
+.logo-img {
+  background-color: black;
+  width: 100px;
+}
+.second-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  flex: 2;
+}
+
+.help-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.arrow {
+  margin-top: 0;
+  margin-left: 0;
+  padding-top: 0;
+}
+
+.help-span {
+  padding: 0;
+  display: flex;
+}
+
+.search-flex {
+  position: relative;
+}
+
+.input-class {
+  width: 400px;
+  padding: 7px 5px;
+  border-radius: 50px;
+  border-color: rgb(221, 219, 219);
+}
+
+.input-class:focus {
+  outline: none;
+}
+
+.search-icon {
+  color: rgb(203, 201, 201);
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  font-size: 25px;
+}
+
+.third-flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 50px;
+  flex: 1;
+}
+
+.media-on {
+  display: none;
+}
+
+@media (max-width: 750px) {
+  .second-flex {
+    display: none;
+  }
+  .media-on {
+    display: inline;
+  }
+
+  .media-none {
+    display: none;
+  }
+
+  .third-flex {
+    gap: 20px;
+    justify-content: flex-end;
+  }
+}
