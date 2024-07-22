@@ -115,6 +115,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 10px;
   }
 
   .media-flex {
@@ -130,5 +131,11 @@
   }
   .bold2 {
     margin-left: 100px;
+  }
+
+  .r-card > img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
