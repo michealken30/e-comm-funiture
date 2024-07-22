@@ -24,7 +24,7 @@ const BestCollections = ({ title }) => {
                 </div>
 
                 <div className="wishlist2">
-                  <span className="">{card.name}</span>
+                  <span className="name-span">{card.name}</span>
                   <CiHeart className="mt-left" />
                 </div>
                 <span className="">{card.detail}</span>
