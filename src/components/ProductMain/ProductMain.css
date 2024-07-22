@@ -112,7 +112,7 @@
   margin-top: 20px;
 }
 
-.prev {
+/* .prev {
   margin-right: 10px;
 }
 
@@ -124,7 +124,7 @@
 .next {
   margin-left: 10px;
   margin-right: 50px;
-}
+} */
 
 .active-page {
   border-radius: 2px;
@@ -143,9 +143,9 @@
     display: grid;
     grid-template-columns: 1fr;
     column-gap: 25px;
-
+    margin-right: 0px;
     row-gap: 25px;
-    overflow: none;
+    overflow: hidden;
   }
 
   .r-card {
@@ -173,6 +173,10 @@
   }
 
   .prev {
-    margin-left: 15px;
+    margin-left: 0px;
+  }
+
+  .sortFlex {
+    margin-right: 0px;
   }
 }
