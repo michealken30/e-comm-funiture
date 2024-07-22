@@ -19,7 +19,9 @@ const BestCollections = ({ title }) => {
           {data.map((card, i) => (
             <Link to="/details/1" className="border">
               <div key={i} className="flexColStart r-card">
-                <img src={card.image} alt="home" />
+                <div>
+                  <img src={card.image} alt="home" />
+                </div>
 
                 <div className="wishlist">
                   <span className="">{card.name}</span>
