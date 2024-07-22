@@ -22,7 +22,7 @@ const ProductMain = () => {
           <span>Date: New to Old</span>
           <span>Featured</span>
         </div>
-        <div class="grid-class3 js-grid-class3">
+        <div class="grid-class3 media-flex2">
           {data.map((card, i) => (
             <Link to="/details/1" className="border">
               <div key={i} className="flexColStart r-card">

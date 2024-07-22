@@ -19,11 +19,11 @@
   margin-right: 2px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 700px) {
   .two-sections1 {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 2fr;
     overflow: none;
-    gap: 5px;
+    gap: 35px;
   }
 }

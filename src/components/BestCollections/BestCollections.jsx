@@ -17,13 +17,13 @@ const BestCollections = ({ title }) => {
 
         <div className="flexCenter media-flex">
           {data.map((card, i) => (
-            <Link to="/details/1" className="border">
-              <div key={i} className="flexColStart r-card">
+            <Link to="/details/1" className="border2">
+              <div key={i} className="flexColStart2 r-card2">
                 <div>
-                  <img src={card.image} alt="home" />
+                  <img src={card.image} alt="home" className="img-1" />
                 </div>
 
-                <div className="wishlist">
+                <div className="wishlist2">
                   <span className="">{card.name}</span>
                   <CiHeart className="mt-left" />
                 </div>
