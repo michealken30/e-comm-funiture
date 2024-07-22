@@ -155,7 +155,7 @@
   margin-bottom: 10px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 400px) {
   .card-div2 {
     width: 100%;
     padding: 10px 15px;
@@ -184,20 +184,20 @@
   }
 
   .check-div3 {
-    margin-left: 0; /* Reset margin */
+    margin-left: 0;
   }
 
   .coupon-input {
-    font-size: 14px; /* Adjust font size for input */
+    font-size: 12px; /* Adjust font size for input */
   }
 
   .coupon-button {
-    font-size: 14px; /* Adjust font size for button */
-    padding: 8px 16px; /* Adjust padding for button */
+    font-size: 12px;
+    padding: 8px 14px;
   }
 
   .checkout {
-    font-size: 12px; /* Adjust font size for button */
-    padding: 8px 16px; /* Adjust padding for button */
+    font-size: 12px;
+    padding: 8px 14px;
   }
 }

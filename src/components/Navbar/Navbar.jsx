@@ -50,7 +50,7 @@ const Navbar = () => {
             <div className="third-flex">
               <CiHeart className="media-none" />
               <Link to="/cart">
-                <FaCartShopping className="" />
+                <FaCartShopping className="cart-shop" />
               </Link>
               <CiUser />
               <IoMenuOutline className="media-on" />

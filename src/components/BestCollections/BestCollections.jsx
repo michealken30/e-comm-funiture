@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 const BestCollections = ({ title }) => {
   return (
     <section className="app">
-      <div className="media-flex">
+      <div className="">
         <div className="r-head flexEndStart">
-          <span className="text-bold">{title}</span>
+          <span className="text-bold bold2">{title}</span>
           <Link to="/products">
             <span className="primaryText media-view">View All</span>
           </Link>
@@ -44,7 +44,9 @@ const BestCollections = ({ title }) => {
             </Link>
           ))}
         </div>
-        <span className="primaryText view-all">View All</span>
+        <Link to="/products">
+          <span className="primaryText view-all">View All</span>
+        </Link>
       </div>
     </section>
   );

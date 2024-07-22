@@ -17,3 +17,11 @@ a {
   margin: auto;
   margin-top: 15px;
 }
+
+@media (max-width: 767px) {
+  .app {
+    width: 90%;
+    margin: auto;
+    margin-top: 15px;
+  }
+}

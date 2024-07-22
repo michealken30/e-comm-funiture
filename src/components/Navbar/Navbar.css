@@ -47,6 +47,11 @@ nav {
   gap: 10px;
 }
 
+.cart-shop {
+  color: black;
+  margin-top: 5px;
+}
+
 .arrow {
   margin-top: 0;
   margin-left: 0;
