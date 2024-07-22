@@ -58,8 +58,8 @@
 }
 
 .r-card > :nth-child(2) {
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .r-card > :nth-child(3) {
@@ -79,9 +79,9 @@
 
 .wishlist {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 22px;
+  gap: 25px;
 }
 
 .r-card:hover {
