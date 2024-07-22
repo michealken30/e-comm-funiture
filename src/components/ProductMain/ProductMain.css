@@ -58,7 +58,7 @@
 }
 
 .r-card > :nth-child(2) {
-  font-size: 12px;
+  font-size: 1rem;
   font-weight: 500;
 }
 
@@ -151,6 +151,11 @@
   .r-card {
     padding: 0.5rem;
     width: 100%;
+  }
+
+  .r-card > :nth-child(2) {
+    font-size: 12px;
+    font-weight: 600;
   }
   .sortFlex {
     display: none;
