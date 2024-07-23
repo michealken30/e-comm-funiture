@@ -47,18 +47,26 @@ const Navbar = () => {
               </div>
               {/* darkmode Switch */}
             </div>
-            <div className="third-flex">
+            <div className={mobileMenu ? "color2 third-flex" : "third-flex"}>
               <CiHeart className="media-none" />
               <Link to="/cart">
                 <FaCartShopping className="cart-shop" />
               </Link>
               <CiUser />
-              <IoMenuOutline className="media-on" />
+              <IoMenuOutline className="media-on" onClick={toggleMenu} />
             </div>
           </div>
 
           {/* lower Navbar */}
         </div>
+        <ul className={mobileMenu ? "mobile-view" : "hide-mobile-menu"}>
+          <li>Home</li>
+          <li>Shop</li>
+          <li>About us</li>
+          <li>Furniture</li>
+          <li>Contact us</li>
+          <li>Sign in</li>
+        </ul>
       </div>
     </nav>
   );
