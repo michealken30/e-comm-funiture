@@ -67,6 +67,17 @@ nav {
   position: relative;
 }
 
+.btn-signin {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .input-class {
   width: 400px;
   padding: 7px 5px;
@@ -116,6 +127,10 @@ nav {
     gap: 20px;
     justify-content: flex-end;
   }
+
+  /* .btn-signin {
+    display: none;
+  } */
 
   .mobile-view {
     position: fixed;

@@ -10,7 +10,7 @@ import logo1 from "../../assets/Frame 3.png";
 import { IoMenuOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ showLogin, setShowLogin }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   const toggleMenu = () => {
@@ -52,7 +52,17 @@ const Navbar = () => {
               <Link to="/cart">
                 <FaCartShopping className="cart-shop" />
               </Link>
-              <CiUser />
+              {showLogin ? (
+                <CiUser />
+              ) : (
+                <button
+                  className="btn-signin"
+                  onClick={() => setShowLogin(true)}
+                >
+                  Sign in
+                </button>
+              )}
+
               <IoMenuOutline className="media-on" onClick={toggleMenu} />
             </div>
           </div>

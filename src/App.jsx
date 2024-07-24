@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage/HomePage";
 import ProductPage from "./pages/productsPage/ProductPage";
@@ -8,12 +8,17 @@ import Footer from "./components/Footer/Footer";
 import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout/Checkout";
 import ScrollToTop from "./components/scrollTop";
+import LoginPop from "./components/Login/LoginPop";
 
 const App = () => {
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <>
       <ScrollToTop />
-      <Navbar />
+      {showLogin ? <LoginPop setShowLogin={setShowLogin} /> : <></>}
+
+      <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<ProductPage />} />
