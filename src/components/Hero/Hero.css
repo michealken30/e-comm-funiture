@@ -41,14 +41,13 @@
   align-items: center;
 }
 
-/* .slick-list {
+.slick-list {
   overflow: hidden !important;
-
-} */
-
-.slick-initialized {
-  overflow: hidden;
 }
+
+/* .slick-initialized {
+  overflow: hidden;
+} */
 /* Small devices (phones, less than 768px) */
 @media (max-width: 767px) {
   .header-content {
