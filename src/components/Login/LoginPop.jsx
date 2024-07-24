@@ -22,7 +22,7 @@ const LoginPop = ({ setShowLogin }) => {
   };
 
   const onLoginHandler = () => {
-    navigate("/products");
+    navigate("/");
   };
 
   return (
