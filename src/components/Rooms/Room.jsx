@@ -2,7 +2,7 @@ import React from "react";
 import "./Room.css";
 import image_1 from "../../assets/Image.png";
 import image_2 from "../../assets/Image2nd.png";
-import image_3 from "../../assets/Image3rd.png";
+import image_3 from "/Image3rd.png";
 
 const Room = () => {
   return (

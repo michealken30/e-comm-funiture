@@ -39,3 +39,30 @@ export const Single = [
     image: "/Image6.png",
   },
 ];
+
+export const Slider1 = [
+  {
+    name1: "What We Represent",
+    name2: "Quality Craftsmanship",
+    name3: "Affordability",
+    name4: "Modern Aesthetics",
+    name5: "Customer Satisfaction",
+    image: "/hero2.png",
+  },
+  {
+    name1: "What We Represent",
+    name2: "Quality Craftsmanship",
+    name3: "Affordability",
+    name4: "Modern Aesthetics",
+    name5: "Customer Satisfaction",
+    image: "/Image3rd.png",
+  },
+  {
+    name1: "What We Represent",
+    name2: "Quality Craftsmanship",
+    name3: "Affordability",
+    name4: "Modern Aesthetics",
+    name5: "Customer Satisfaction",
+    image: "/hero2.png",
+  },
+];
