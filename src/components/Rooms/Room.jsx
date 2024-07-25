@@ -9,13 +9,18 @@ const Room = () => {
     <div className="app">
       <div className="title">
         <h2>Shop by Room</h2>
-        <p>
+        <p data-aos="fade-up">
           Craft a space that beckons your return. Explore our meticulously
           curated collections, tailored with your preferences in mind.
         </p>
       </div>
       <div className="programs">
-        <div className="program">
+        <div
+          className="program"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+        >
           <img src={image_1} alt="" />
           <div className="caption">
             <p>LIVING ROOM</p>
@@ -24,7 +29,7 @@ const Room = () => {
             Portrait of Home Shop<span> The Entry way</span>
           </p>
         </div>
-        <div className="program">
+        <div className="program " data-aos="fade-up" data-aos-duration="1000">
           <img src={image_2} alt="" />
           <div className="caption">
             <p>BED ROOM</p>
@@ -33,7 +38,12 @@ const Room = () => {
             The Pride Room of a Home Shop<span> The Living Room</span>
           </p>
         </div>
-        <div className="program">
+        <div
+          className="program"
+          data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000"
+        >
           <img src={image_3} alt="" />
           <div className="caption">
             <p>DINNING ROOM</p>

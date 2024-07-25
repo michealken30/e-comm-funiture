@@ -24,7 +24,13 @@ const Hero = () => {
           <div className="header" key={i}>
             <img className="hero-img" src={data.image} alt="" />
             <div className="header-content">
-              <h2>{data.name1}</h2>
+              <h2
+                data-aos="zoom-out"
+                data-aos-duration="500"
+                data-aos-once="true"
+              >
+                {data.name1}
+              </h2>
               <div>
                 <span>{data.name2}</span>
                 <span className="media-service">{data.name3}</span>

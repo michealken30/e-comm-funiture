@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Navbar.css";
 import { IoMdSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
@@ -12,13 +12,37 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setMobileMenu(!mobileMenu);
   };
 
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setMobileMenu(false);
+    }
+  };
+
+  useEffect(() => {
+    if (mobileMenu) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [mobileMenu]);
+
+  const handleSignInClick = () => {
+    setShowLogin(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <nav className="nav-bar">
+    <nav className="nav-bar" ref={menuRef}>
       <div className="">
         <div className="app ">
           <div className="nav-flex">
@@ -55,10 +79,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
               {showLogin ? (
                 <CiUser />
               ) : (
-                <button
-                  className="btn-signin"
-                  onClick={() => setShowLogin(true)}
-                >
+                <button className="btn-signin" onClick={handleSignInClick}>
                   Sign in
                 </button>
               )}

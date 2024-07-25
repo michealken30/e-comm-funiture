@@ -23,9 +23,14 @@ const ProductMain = () => {
           <span>Featured</span>
         </div>
         <div class="grid-class3 media-flex2">
-          {data.map((card, i) => (
-            <Link to="/details/1" className="border">
-              <div key={i} className="flexColStart r-card">
+          {data.map((card) => (
+            <Link
+              to="/details/1"
+              className="border"
+              // data-aos="fade-up"
+              // data-aos-delay={card.aosDelay}
+            >
+              <div key={card.id} className="flexColStart r-card">
                 <img src={card.image} alt="home" />
                 <div className="wishlist">
                   <span className="">{card.name}</span>

@@ -16,9 +16,14 @@ const BestCollections = ({ title }) => {
         </div>
 
         <div className="flexCenter media-flex">
-          {data.map((card, i) => (
-            <Link to="/details/1" className="border2">
-              <div key={i} className="flexColStart2 r-card2">
+          {data.map((card) => (
+            <Link
+              to="/details/1"
+              className="border2 "
+              data-aos="fade-up"
+              data-aos-delay={card.aosDelay}
+            >
+              <div key={card.id} className="flexColStart2 r-card2">
                 <div>
                   <img src={card.image} alt="home" className="img-1" />
                 </div>

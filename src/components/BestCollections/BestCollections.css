@@ -30,6 +30,7 @@
 
 .view-all {
   display: none;
+  font-weight: 600;
 }
 
 .flexCenter {
@@ -101,8 +102,12 @@
 
 .media-view:hover {
   text-decoration: underline;
+  font-weight: 600;
 }
 
+.media-view {
+  font-weight: 600;
+}
 .r-card2:hover {
   scale: 1.025;
   cursor: pointer;
@@ -129,8 +134,16 @@
     gap: 20px;
   }
 
+  .view-all {
+    font-weight: 600;
+  }
+
+  .view-all:hover {
+    text-decoration: underline;
+  }
   .media-view {
     display: none;
+    font-weight: 600;
   }
   .bold2 {
     margin-left: 100px;
