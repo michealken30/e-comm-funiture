@@ -47,10 +47,12 @@ const Navbar = ({ showLogin, setShowLogin }) => {
         <div className="app ">
           <div className="nav-flex">
             <div className="first-flex">
-              <div className="logoFlex1">
-                <img className="logo-img" src={logo1} alt="" />
-                <span>Aplha furniture</span>
-              </div>
+              <Link to="/">
+                <div className="logoFlex1">
+                  <img className="logo-img" src={logo1} alt="" />
+                  <span>Aplha furniture</span>
+                </div>
+              </Link>
             </div>
             {/* search bar and order */}
             <div className="second-flex">

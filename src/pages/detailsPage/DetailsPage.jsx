@@ -4,13 +4,17 @@ import LeftDetailCard from "../../components/LeftDetailCard/LeftDetailCard";
 import RightDetailCard from "../../components/RightDetailCard/RightDetailCard";
 import "./Detail.css";
 import BestCollections from "../../components/BestCollections/BestCollections";
+import { Link } from "react-router-dom";
 
 const DetailsPage = () => {
   return (
     <>
       <div className="app">
         <p className="product-style">
-          Home<span class="health-style"> &gt;</span> Furniture{" "}
+          <Link to="/" className="home-color">
+            Home
+          </Link>
+          <span class="health-style"> &gt;</span> Furniture{" "}
           <span class="health-style"> &gt;</span> Sofa{" "}
           <span class="health-style"> &gt;</span> LuxeComfort Sectional Sofa
         </p>

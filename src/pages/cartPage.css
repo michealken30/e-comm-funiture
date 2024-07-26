@@ -11,6 +11,10 @@
   margin-right: 2px;
 }
 
+.home-color {
+  color: black;
+}
+
 @media (max-width: 767px) {
   .media-p {
     font-size: 12px;
