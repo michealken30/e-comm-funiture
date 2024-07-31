@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./LoginPop.css";
 import { useNavigate } from "react-router-dom";
+import { StoreContext } from "../../Context/StoreContext";
 
-const LoginPop = ({ setShowLogin }) => {
+const LoginPop = ({ setShowLogin, onSave, isLoading }) => {
   const navigate = useNavigate();
-  const [currentState, setCurrrentState] = useState("Login");
+  const { currentState, setCurrentState } = useContext(StoreContext);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -21,8 +22,15 @@ const LoginPop = ({ setShowLogin }) => {
     }));
   };
 
-  const onLoginHandler = () => {
-    navigate("/");
+  const onLoginHandler = async (event) => {
+    event.preventDefault();
+    try {
+      await onSave(data);
+      setShowLogin(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   };
 
   return (
@@ -79,12 +87,12 @@ const LoginPop = ({ setShowLogin }) => {
         {currentState === "Login" ? (
           <p>
             Create a new account?
-            <span onClick={() => setCurrrentState("Sign up")}>Click here</span>
+            <span onClick={() => setCurrentState("Sign up")}>Click here</span>
           </p>
         ) : (
           <p>
             Already have an account?
-            <span onClick={() => setCurrrentState("Login")}>Login here</span>
+            <span onClick={() => setCurrentState("Login")}>Login here</span>
           </p>
         )}
       </form>

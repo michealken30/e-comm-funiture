@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/homePage/HomePage";
 import ProductPage from "./pages/productsPage/ProductPage";
@@ -8,8 +8,10 @@ import Footer from "./components/Footer/Footer";
 import CartPage from "./pages/CartPage";
 import Checkout from "./pages/Checkout/Checkout";
 import ScrollToTop from "./components/scrollTop";
-import LoginPop from "./components/Login/LoginPop";
+// import LoginPop from "./components/Login/LoginPop";
 import AOS from "aos";
+import { StoreContext } from "./Context/StoreContext";
+import UserPage from "./pages/UserPage";
 
 const App = () => {
   React.useEffect(() => {
@@ -22,12 +24,15 @@ const App = () => {
     AOS.refresh();
   }, []);
 
-  const [showLogin, setShowLogin] = useState(false);
+  // const [showLogin, setShowLogin] = useState(false);
+
+  const { showLogin, setShowLogin } = useContext(StoreContext);
 
   return (
     <>
       <ScrollToTop />
-      {showLogin ? <LoginPop setShowLogin={setShowLogin} /> : <></>}
+      <UserPage />
+      {/* {showLogin ? <LoginPop setShowLogin={setShowLogin} /> : <></>} */}
 
       <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
       <Routes>
