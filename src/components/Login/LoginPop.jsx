@@ -2,10 +2,17 @@ import React, { useContext, useState } from "react";
 import "./LoginPop.css";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
+import toast from "react-hot-toast";
 
-const LoginPop = ({ setShowLogin, onSave, isLoading }) => {
-  const navigate = useNavigate();
-  const { currentState, setCurrentState } = useContext(StoreContext);
+const LoginPop = ({
+  setShowLogin,
+  onSave,
+  isLoading,
+  onGoogle,
+  isGoogleLoading,
+}) => {
+  const { currentState, setCurrentState, token, setToken } =
+    useContext(StoreContext);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -20,6 +27,19 @@ const LoginPop = ({ setShowLogin, onSave, isLoading }) => {
       ...data,
       [name]: value,
     }));
+  };
+
+  const onGoogleHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await onGoogle();
+      setToken(response.token);
+      localStorage.setItem("token", response.token);
+      setShowLogin(false);
+      toast.success(response.message || "You are Sign in");
+    } catch (error) {
+      toast.error(error.message || "An error occurred");
+    }
   };
 
   const onLoginHandler = async (event) => {
@@ -82,6 +102,16 @@ const LoginPop = ({ setShowLogin, onSave, isLoading }) => {
         ) : (
           <button type="submit">
             {currentState === "Sign up" ? "Create account" : "Login"}
+          </button>
+        )}
+
+        {isGoogleLoading ? (
+          <button type="submit" disabled>
+            Loading...
+          </button>
+        ) : (
+          <button type="button" className="google" onClick={onGoogleHandler}>
+            Continue With Google
           </button>
         )}
 

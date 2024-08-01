@@ -79,4 +79,43 @@ const Login = async (req, res) => {
   }
 };
 
-export { Register, Login };
+const Google = async (req, res) => {
+  console.log(req.body);
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (user) {
+      const { password: hashedPassword, ...rest } = user._doc;
+
+      const token = createToken(user._id);
+
+      res.status(200).json({ success: true, token });
+    } else {
+      const generatedPassword = Math.random().toString(36).slice(-8);
+      Math.random().toString(36).slice(-8);
+
+      const salt = await bcrypt.genSalt(10);
+
+      const hashedPassword = await bcrypt.hash(generatedPassword, salt);
+
+      const newUser = new User({
+        email: req.body.email,
+        password: hashedPassword,
+        name: req.body.name,
+      });
+
+      console.log(newUser.name);
+
+      const user = await newUser.save();
+
+      const token = createToken(user._id);
+
+      res.json({ success: true, token, message: "User Created Successfully" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "error with continue with google" });
+  }
+};
+
+export { Register, Login, Google };

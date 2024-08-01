@@ -64,6 +64,14 @@
   margin-top: -15px;
 }
 
+.login-popup-container button .google {
+  background-color: rgb(45, 44, 44);
+}
+
+.google {
+  background-color: rgb(45, 44, 44);
+}
+
 .login-popup-condition input {
   margin-top: 5px;
 }

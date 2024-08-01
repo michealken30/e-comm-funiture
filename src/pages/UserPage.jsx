@@ -3,8 +3,11 @@ import { StoreContext } from "../Context/StoreContext";
 import LoginPop from "../components/Login/LoginPop";
 import { useCreateMyUserRequest, useLoginUserRequest } from "../Api/MyUserApi";
 import toast from "react-hot-toast";
+import { useGoogleAuth } from "../Api/GoogleApi";
 
 const UserPage = () => {
+  const { googleAuth, isLoading: googleLoading } = useGoogleAuth();
+
   const {
     createUser,
     isLoading: creatingLoading,
@@ -53,6 +56,8 @@ const UserPage = () => {
               : handleLoginOrSignup(data, loginUser)
           }
           isLoading={LoginLoading || creatingLoading}
+          onGoogle={googleAuth}
+          isGoogleLoading={googleLoading}
         />
       ) : (
         <></>
