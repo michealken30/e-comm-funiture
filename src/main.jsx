@@ -5,6 +5,7 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import StoreContextProvider from "./Context/StoreContext.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <QueryClientProvider client={queryClient}>
         <StoreContextProvider>
           <App />
+          <Toaster position="top-right" />
         </StoreContextProvider>
       </QueryClientProvider>
     </BrowserRouter>

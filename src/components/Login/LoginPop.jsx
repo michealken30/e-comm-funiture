@@ -26,8 +26,6 @@ const LoginPop = ({ setShowLogin, onSave, isLoading }) => {
     event.preventDefault();
     try {
       await onSave(data);
-      setShowLogin(false);
-      navigate("/");
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -77,9 +75,16 @@ const LoginPop = ({ setShowLogin, onSave, isLoading }) => {
             required
           />
         </div>
-        <button type="submit">
-          {currentState === "Sign up" ? "Create account" : "Login"}
-        </button>
+        {isLoading ? (
+          <button type="submit" disabled>
+            Loading...
+          </button>
+        ) : (
+          <button type="submit">
+            {currentState === "Sign up" ? "Create account" : "Login"}
+          </button>
+        )}
+
         <div className="login-popup-condition">
           <input type="checkbox" name="" required />
           <p>By continuing i agree to the term of use & privacy policy</p>

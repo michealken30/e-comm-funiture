@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Navbar.css";
 import { IoMdSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
@@ -8,11 +8,23 @@ import { FaRegQuestionCircle } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import logo1 from "../../assets/Frame 3.png";
 import { IoMenuOutline } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { StoreContext } from "../../Context/StoreContext";
+import toast from "react-hot-toast";
 
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
+  const { token, setToken } = useContext(StoreContext);
   const menuRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const Logout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+    toast.success("Logout Successfully");
+  };
 
   const toggleMenu = () => {
     setMobileMenu(!mobileMenu);
@@ -74,15 +86,20 @@ const Navbar = ({ showLogin, setShowLogin }) => {
               {/* darkmode Switch */}
             </div>
             <div className={mobileMenu ? "color2 third-flex" : "third-flex"}>
-              <CiHeart className="media-none" />
+              {/* <CiHeart className="media-none" /> */}
               <Link to="/cart">
                 <FaCartShopping className="cart-shop" />
               </Link>
-              {showLogin ? (
-                <CiUser />
+              {token ? <CiUser /> : <></>}
+              {!token ? (
+                <div>
+                  <button className="btn-signin" onClick={handleSignInClick}>
+                    Sign in
+                  </button>
+                </div>
               ) : (
-                <button className="btn-signin" onClick={handleSignInClick}>
-                  Sign in
+                <button className="btn-signin" onClick={Logout}>
+                  Logout
                 </button>
               )}
 

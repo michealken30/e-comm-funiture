@@ -19,14 +19,14 @@ export const useCreateMyUserRequest = () => {
   const {
     mutateAsync: createUser,
     isLoading,
-    isError,
+    error,
     isSuccess,
   } = useMutation(CreateMyUserRequest);
 
   return {
     createUser,
     isLoading,
-    isError,
+    error,
     isSuccess,
   };
 };
@@ -46,15 +46,15 @@ export const useLoginUserRequest = () => {
 
   const {
     mutateAsync: loginUser,
-    isError,
     isSuccess,
     isLoading,
+    error,
   } = useMutation(LoginMyUserRequest);
 
   return {
     loginUser,
     isLoading,
-    isError,
     isSuccess,
+    error,
   };
 };
