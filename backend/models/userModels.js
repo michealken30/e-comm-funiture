@@ -16,6 +16,8 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  storedResetToken: { type: String },
+  resetTokenExpiry: { type: Date },
 });
 
 const User = mongoose.model("User", userSchema);

@@ -12,6 +12,7 @@ import ScrollToTop from "./components/scrollTop";
 import AOS from "aos";
 import { StoreContext } from "./Context/StoreContext";
 import UserPage from "./pages/UserPage";
+import ResetPassword from "./components/ForgotPassword/ResetPassword";
 
 const App = () => {
   React.useEffect(() => {
@@ -37,6 +38,7 @@ const App = () => {
       <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/products" element={<ProductPage />} />
         <Route path="/details/:id" element={<DetailsPage />} />
         <Route path="*" element={<HomePage />} />

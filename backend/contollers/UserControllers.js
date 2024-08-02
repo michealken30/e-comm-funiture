@@ -2,6 +2,8 @@ import validator from "validator";
 import User from "../models/userModels.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { generateToken, storedToken } from "../utils/generateToken.js";
+import { sendEmail } from "../utils/sendEmail.js";
 
 const Register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -118,4 +120,75 @@ const Google = async (req, res) => {
   }
 };
 
-export { Register, Login, Google };
+const requestPasswordReset = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User does not exist" });
+    }
+
+    const resetToken = generateToken();
+    const storedResetToken = storedToken(resetToken);
+    user.storedResetToken = storedResetToken;
+    user.resetTokenExpiry = Date.now() + 10 * 60 * 1000;
+
+    await user.save();
+
+    const resetLink = `${req.protocol}://${req.get(
+      "host"
+    )}/api/users/reset-password?token=${resetToken}`;
+    await sendEmail(
+      email,
+      "Password Reset",
+      `Please click this link to reset your password: ${resetLink}`
+    );
+
+    res
+      .status(200)
+      .json({ success: true, message: "Password reset link sent" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.query;
+  const { newPassword } = req.body;
+
+  hashedtoken = storedToken(token);
+
+  try {
+    const user = await User.findOne({
+      storedResetToken: hashedtoken,
+      resetTokenExpiry: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired token" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(newPassword, salt);
+    user.storedResetToken = undefined;
+    user.resetTokenExpiry = undefined;
+
+    await user.save();
+
+    res
+      .status(200)
+      .json({ success: true, message: "Password reset successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export { Register, Login, Google, requestPasswordReset, resetPassword };

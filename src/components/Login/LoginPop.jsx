@@ -29,6 +29,12 @@ const LoginPop = ({
     }));
   };
 
+  const resetPassword = (e) => {
+    e.preventDefault();
+    setShowLogin(false);
+    setCurrentState("Login");
+  };
+
   const onGoogleHandler = async (e) => {
     e.preventDefault();
     try {
@@ -64,45 +70,65 @@ const LoginPop = ({
             &times;
           </p>
         </div>
-        <div className="login-popup-input">
-          {currentState === "Login" ? (
-            <></>
-          ) : (
+
+        {currentState !== "Reset Password" && (
+          <div className="login-popup-input">
+            {currentState === "Sign up" && (
+              <input
+                type="text"
+                name="name"
+                value={data.name}
+                onChange={onChangeHandler}
+                placeholder="Name"
+                required
+              />
+            )}
+
             <input
               type="text"
-              name="name"
-              value={data.name}
+              name="email"
+              value={data.email}
               onChange={onChangeHandler}
-              placeholder="Name"
+              placeholder="Email"
               required
             />
-          )}
+            <input
+              type="password"
+              name="password"
+              value={data.password}
+              onChange={onChangeHandler}
+              placeholder="Password"
+              required
+            />
+          </div>
+        )}
 
-          <input
-            type="text"
-            name="email"
-            value={data.email}
-            onChange={onChangeHandler}
-            placeholder="Email"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            value={data.password}
-            onChange={onChangeHandler}
-            placeholder="Password"
-            required
-          />
-        </div>
+        {currentState === "Reset Password" && (
+          <div className="login-popup-input">
+            <input
+              type="email"
+              name="email"
+              value={data.email}
+              onChange={onChangeHandler}
+              placeholder="Enter your email"
+              required
+            />
+            <button type="button" onClick={resetPassword}>
+              Send Reset Link
+            </button>
+          </div>
+        )}
+
         {isLoading ? (
           <button type="submit" disabled>
             Loading...
           </button>
         ) : (
-          <button type="submit">
-            {currentState === "Sign up" ? "Create account" : "Login"}
-          </button>
+          currentState !== "Reset Password" && (
+            <button type="submit">
+              {currentState === "Sign up" ? "Create account" : "Login"}
+            </button>
+          )
         )}
 
         {isGoogleLoading ? (
@@ -110,23 +136,35 @@ const LoginPop = ({
             Loading...
           </button>
         ) : (
-          <button type="button" className="google" onClick={onGoogleHandler}>
-            Continue With Google
-          </button>
+          currentState !== "Reset Password" && (
+            <button type="button" className="google" onClick={onGoogleHandler}>
+              Continue With Google
+            </button>
+          )
         )}
 
-        <div className="login-popup-condition">
-          <input type="checkbox" name="" required />
-          <p>By continuing i agree to the term of use & privacy policy</p>
-        </div>
-        {currentState === "Login" ? (
+        {currentState !== "Reset Password" && (
+          <div className="login-popup-condition">
+            <input type="checkbox" name="" required />
+            <p>By continuing, I agree to the terms of use & privacy policy</p>
+          </div>
+        )}
+
+        {currentState === "Login" && (
+          <>
+            <p>
+              Create a new account?{" "}
+              <span onClick={() => setCurrentState("Sign up")}>Click here</span>
+            </p>
+            <span onClick={() => setCurrentState("Reset Password")}>
+              Forgot Password
+            </span>
+          </>
+        )}
+
+        {currentState === "Sign up" && (
           <p>
-            Create a new account?
-            <span onClick={() => setCurrentState("Sign up")}>Click here</span>
-          </p>
-        ) : (
-          <p>
-            Already have an account?
+            Already have an account?{" "}
             <span onClick={() => setCurrentState("Login")}>Login here</span>
           </p>
         )}
