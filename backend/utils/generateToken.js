@@ -5,5 +5,5 @@ export const generateToken = () => {
 };
 
 export const storedToken = (resetToken) => {
-  crypto.createHash("sha256").update(resetToken).digest("hex");
+  return crypto.createHash("sha256").update(resetToken).digest("hex");
 };

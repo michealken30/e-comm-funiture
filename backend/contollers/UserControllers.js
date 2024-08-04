@@ -134,14 +134,13 @@ const requestPasswordReset = async (req, res) => {
 
     const resetToken = generateToken();
     const storedResetToken = storedToken(resetToken);
+    console.log(storedResetToken);
     user.storedResetToken = storedResetToken;
-    user.resetTokenExpiry = Date.now() + 10 * 60 * 1000;
+    user.resetTokenExpiry = Date.now() + 30 * 60 * 1000;
 
     await user.save();
 
-    const resetLink = `${req.protocol}://${req.get(
-      "host"
-    )}/api/users/reset-password?token=${resetToken}`;
+    const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
     await sendEmail(
       email,
       "Password Reset",
@@ -158,10 +157,10 @@ const requestPasswordReset = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-  const { token } = req.query;
-  const { newPassword } = req.body;
+  const { token, newPassword } = req.body;
 
-  hashedtoken = storedToken(token);
+  const tokenString = String(token);
+  const hashedtoken = storedToken(tokenString);
 
   try {
     const user = await User.findOne({

@@ -1,38 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./ResetPassword.css";
+import { useResetPasswordRequest } from "../../Api/MyUserApi";
+import { StoreContext } from "../../Context/StoreContext";
 
 const ResetPassword = () => {
   const { id, token } = useParams();
   const navigate = useNavigate();
+  const { setShowLogin } = useContext(StoreContext);
   const [newPassword, setNewPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const { resetPassword, isLoading: resetLoading } = useResetPasswordRequest();
+  const data = {
+    newPassword,
+    token,
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setIsLoading(true);
     try {
-      const response = await fetch("/api/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id, token, newPassword }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to reset password");
-      }
-
-      const data = await response.json();
-      toast.success(data.message || "Password reset successfully");
-      navigate("/login");
+      const response = await resetPassword(data);
+      navigate("/");
+      setShowLogin(true);
+      toast.success(response.message || "You can now login");
     } catch (error) {
       toast.error(error.message || "An error occurred");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -47,9 +39,13 @@ const ResetPassword = () => {
           onChange={(e) => setNewPassword(e.target.value)}
           required
         />
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Resetting..." : "Reset Password"}
-        </button>
+        {resetLoading ? (
+          <button type="submit" disabled>
+            Loading...
+          </button>
+        ) : (
+          <button type="submit">Reset Password</button>
+        )}
       </form>
     </div>
   );

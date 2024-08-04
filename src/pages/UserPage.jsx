@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { StoreContext } from "../Context/StoreContext";
 import LoginPop from "../components/Login/LoginPop";
-import { useCreateMyUserRequest, useLoginUserRequest } from "../Api/MyUserApi";
+import {
+  useCreateMyUserRequest,
+  useLoginUserRequest,
+  useResetPasswordLink,
+} from "../Api/MyUserApi";
 import toast from "react-hot-toast";
 import { useGoogleAuth } from "../Api/GoogleApi";
 
@@ -22,6 +26,8 @@ const UserPage = () => {
     error: LoginError,
   } = useLoginUserRequest();
 
+  const { resetLink, isLoading: resetLinkLoading } = useResetPasswordLink();
+
   const {
     showLogin,
     setShowLogin,
@@ -29,9 +35,6 @@ const UserPage = () => {
 
     setToken,
   } = useContext(StoreContext);
-
-  const isSuccess = isCreatingSuccess || LoginSuccess;
-  const error = createError || LoginError;
 
   const handleLoginOrSignup = async (data, action) => {
     try {
@@ -58,6 +61,8 @@ const UserPage = () => {
           isLoading={LoginLoading || creatingLoading}
           onGoogle={googleAuth}
           isGoogleLoading={googleLoading}
+          resetLink={resetLink}
+          resetLinkLoading={resetLinkLoading}
         />
       ) : (
         <></>

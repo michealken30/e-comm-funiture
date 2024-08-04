@@ -15,7 +15,7 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
   padding: 25px 30px;
   border-radius: 8px;
   font-size: 14px;
@@ -29,6 +29,13 @@
   color: black;
 }
 
+.forgot-pass {
+  display: inline;
+  text-decoration: underline;
+  text-align: end;
+  cursor: pointer;
+}
+
 .pop-off {
   cursor: pointer;
   font-size: 25px;
@@ -37,7 +44,7 @@
 .login-popup-input {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
 }
 
 .login-popup-input input {
@@ -61,7 +68,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: -15px;
+  margin-top: 5px;
 }
 
 .login-popup-container button .google {

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "./pages/homePage/HomePage";
 import ProductPage from "./pages/productsPage/ProductPage";
 import DetailsPage from "./pages/detailsPage/DetailsPage";
@@ -28,6 +28,7 @@ const App = () => {
   // const [showLogin, setShowLogin] = useState(false);
 
   const { showLogin, setShowLogin } = useContext(StoreContext);
+  const location = useLocation();
 
   return (
     <>
@@ -35,7 +36,9 @@ const App = () => {
       <UserPage />
       {/* {showLogin ? <LoginPop setShowLogin={setShowLogin} /> : <></>} */}
 
-      <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
+      {!location.pathname.startsWith("/reset-password") && (
+        <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
+      )}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />

@@ -12,7 +12,7 @@ const UserRoute = express.Router();
 UserRoute.post("/register", Register);
 UserRoute.post("/login", Login);
 UserRoute.post("/google", Google);
-router.post("/request-password-reset", requestPasswordReset);
-router.post("/reset-password", resetPassword);
+UserRoute.post("/request-password-reset", requestPasswordReset);
+UserRoute.post("/reset-password", resetPassword);
 
 export default UserRoute;

@@ -10,9 +10,13 @@ const LoginPop = ({
   isLoading,
   onGoogle,
   isGoogleLoading,
+  resetLink,
+  resetLinkLoading,
 }) => {
   const { currentState, setCurrentState, token, setToken } =
     useContext(StoreContext);
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -29,10 +33,23 @@ const LoginPop = ({
     }));
   };
 
-  const resetPassword = (e) => {
-    e.preventDefault();
+  const handleLoginState = () => {
     setShowLogin(false);
     setCurrentState("Login");
+  };
+
+  const resetPassword = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await resetLink(data);
+      navigate("/");
+      setShowLogin(false);
+      setCurrentState("Login");
+
+      toast.success(response.message || "You can now login");
+    } catch (error) {
+      toast.error(error.message || "An error occurred");
+    }
   };
 
   const onGoogleHandler = async (e) => {
@@ -66,7 +83,7 @@ const LoginPop = ({
       >
         <div className="login-popup-title">
           <h2>{currentState}</h2>
-          <p className="pop-off" onClick={() => setShowLogin(false)}>
+          <p className="pop-off" onClick={handleLoginState}>
             &times;
           </p>
         </div>
@@ -113,8 +130,12 @@ const LoginPop = ({
               placeholder="Enter your email"
               required
             />
-            <button type="button" onClick={resetPassword}>
-              Send Reset Link
+            <button
+              type="button"
+              onClick={resetPassword}
+              disabled={resetLinkLoading}
+            >
+              {resetLinkLoading ? "Loading..." : "Send Reset Link"}
             </button>
           </div>
         )}
@@ -156,7 +177,10 @@ const LoginPop = ({
               Create a new account?{" "}
               <span onClick={() => setCurrentState("Sign up")}>Click here</span>
             </p>
-            <span onClick={() => setCurrentState("Reset Password")}>
+            <span
+              className="forgot-pass"
+              onClick={() => setCurrentState("Reset Password")}
+            >
               Forgot Password
             </span>
           </>

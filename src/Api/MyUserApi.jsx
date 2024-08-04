@@ -58,3 +58,59 @@ export const useLoginUserRequest = () => {
     error,
   };
 };
+
+export const useResetPasswordLink = () => {
+  const resetPasswordLink = async (data) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URI}/api/my/user/request-password-reset`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Password reset failed");
+    }
+  };
+
+  const {
+    mutateAsync: resetLink,
+    isSuccess,
+    isLoading,
+    error,
+  } = useMutation(resetPasswordLink);
+
+  return {
+    resetLink,
+    isLoading,
+    isSuccess,
+    error,
+  };
+};
+
+export const useResetPasswordRequest = () => {
+  const resetPasswordRequest = async (data) => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URI}/api/my/user/reset-password`,
+        data
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Password reset failed");
+    }
+  };
+
+  const {
+    mutateAsync: resetPassword,
+    isSuccess,
+    isLoading,
+    error,
+  } = useMutation(resetPasswordRequest);
+
+  return {
+    resetPassword,
+    isLoading,
+    isSuccess,
+    error,
+  };
+};
