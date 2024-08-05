@@ -82,7 +82,6 @@ const Login = async (req, res) => {
 };
 
 const Google = async (req, res) => {
-  console.log(req.body);
   try {
     const user = await User.findOne({ email: req.body.email });
 
@@ -105,8 +104,6 @@ const Google = async (req, res) => {
         password: hashedPassword,
         name: req.body.name,
       });
-
-      console.log(newUser.name);
 
       const user = await newUser.save();
 
@@ -134,7 +131,7 @@ const requestPasswordReset = async (req, res) => {
 
     const resetToken = generateToken();
     const storedResetToken = storedToken(resetToken);
-    console.log(storedResetToken);
+
     user.storedResetToken = storedResetToken;
     user.resetTokenExpiry = Date.now() + 30 * 60 * 1000;
 

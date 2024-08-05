@@ -69,8 +69,8 @@
   justify-content: center;
 }
 .r-card2 > :nth-child(2) {
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .r-card2 > :nth-child(3) {

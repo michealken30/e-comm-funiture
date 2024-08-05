@@ -1,13 +1,3 @@
-/* .two-sections1 {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-}
-
-.first-section1 {
-  margin-left: 10px;
-  margin-top: 30px;
-} */
-
 .heading p {
   font-weight: 600;
 }
@@ -58,8 +48,8 @@
 }
 
 .r-card > :nth-child(2) {
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .r-card > :nth-child(3) {
