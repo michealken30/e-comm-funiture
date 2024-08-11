@@ -28,13 +28,8 @@ const UserPage = () => {
 
   const { resetLink, isLoading: resetLinkLoading } = useResetPasswordLink();
 
-  const {
-    showLogin,
-    setShowLogin,
-    currentState,
-
-    setToken,
-  } = useContext(StoreContext);
+  const { showLogin, setShowLogin, currentState, setToken } =
+    useContext(StoreContext);
 
   const handleLoginOrSignup = async (data, action) => {
     try {

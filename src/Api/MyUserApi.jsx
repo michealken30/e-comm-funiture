@@ -12,7 +12,7 @@ export const useCreateMyUserRequest = () => {
       );
       return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || "Login failed");
+      throw new Error(error.response?.data?.message || "Registration failed");
     }
   };
 
