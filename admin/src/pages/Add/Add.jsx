@@ -1,8 +1,10 @@
 import "./Add.css";
 import { assets } from "../../assets/assets";
 import { useState } from "react";
+import { useAddFurniture } from "../../adminApi/furnitureApi";
+import toast from "react-hot-toast";
 
-const Add = () => {
+const Add = ({ onSave, isLoading, refetch }) => {
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -18,7 +20,55 @@ const Add = () => {
   });
   const [image, setImage] = useState(false);
 
-  const onSubmitHandler = () => {};
+  const validateFormData = () => {
+    if (!image) return "Product Image is required.";
+    return null;
+  };
+
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+
+    const errorMessage = validateFormData();
+    if (errorMessage) {
+      toast.error(errorMessage);
+      return;
+    }
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("short", data.short);
+    formData.append("category", data.category);
+    formData.append("seat", data.seat);
+    formData.append("best", data.best);
+    formData.append("frame", data.frame);
+    formData.append("colors", data.colors);
+    formData.append("priceCat", data.priceCat);
+    formData.append("oldPrice", Number(data.oldPrice));
+    formData.append("newPrice", Number(data.newPrice));
+    formData.append("image", image);
+
+    const response = await onSave(formData);
+    if (response) {
+      setData({
+        name: "",
+        description: "",
+        short: "",
+        category: "Comer sofas",
+        seat: "Leather",
+        best: "Best Seller",
+        frame: "Solid wood",
+        colors: "Black",
+        priceCat: "Under $1000",
+        oldPrice: "",
+        newPrice: "",
+      });
+      setImage(false);
+      await refetch();
+      toast.success(response.message || "Product Added");
+    } else {
+      toast.error(response.message || "Can't add Product");
+    }
+  };
 
   const onChangeHandler = (e) => {
     const name = e.target.name;
@@ -52,6 +102,7 @@ const Add = () => {
             type="text"
             name="name"
             placeholder="Type here"
+            required
           />
         </div>
         <div className="add-product-name flex-col">
@@ -62,6 +113,7 @@ const Add = () => {
             type="text"
             name="short"
             placeholder="Type here"
+            required
           />
         </div>
         <div className="add-product-description flex-col">
@@ -136,6 +188,7 @@ const Add = () => {
               type="Number"
               name="oldPrice"
               placeholder="$20"
+              required
             />
           </div>
           <div className="price flex-col">
@@ -146,11 +199,12 @@ const Add = () => {
               type="Number"
               name="newPrice"
               placeholder="$20"
+              required
             />
           </div>
         </div>
         <button type="submit" className="add-btn">
-          Add
+          {isLoading ? "Loading..." : "Add Product"}
         </button>
       </form>
     </div>

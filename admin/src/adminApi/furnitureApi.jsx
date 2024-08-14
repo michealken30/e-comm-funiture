@@ -1,26 +1,73 @@
 import axios from "axios";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
-export const useaddFurniture = () => {
+export const useAddFurniture = () => {
   const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   const addFurniture = async (data) => {
     try {
-      const response = await axios.post(`/${API_URL}/api/furniture/add`, data);
+      const response = await axios.post(`${API_URL}/api/furniture/add`, data);
       return response.data;
     } catch (error) {
-      throw new Error(response?.data?.message || "Furniture added");
+      throw new Error(error?.response?.data?.message || "Can't add furniture");
+    }
+  };
+
+  const { mutateAsync: addProduct, isLoading } = useMutation(addFurniture);
+
+  return {
+    addProduct,
+    isLoading,
+  };
+};
+
+export const useGetFurniture = () => {
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const GetFurniture = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/furniture/list`);
+      return response.data;
+    } catch (error) {
+      throw new Error(response?.data?.message || "Can't get Furnitures");
     }
   };
 
   const {
-    mutateAsync: addProduct,
+    data: products,
     isLoading,
-    isError,
-  } = useMutation(addFurniture);
+    refetch,
+  } = useQuery("fetchFurniture", GetFurniture);
 
   return {
-    addProduct,
+    products,
+    isLoading,
+    refetch,
+  };
+};
+
+export const useRemoveFurniture = () => {
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
+
+  const RemoveFurniture = async (data) => {
+    try {
+      const response = await axios.post(`${API_URL}/api/furniture/remove`, {
+        id: data,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(response?.data?.message || "Cant remove furniture");
+    }
+  };
+
+  const {
+    mutateAsync: removeProduct,
+    isLoading,
+    isError,
+  } = useMutation(RemoveFurniture);
+
+  return {
+    removeProduct,
     isLoading,
     isError,
   };

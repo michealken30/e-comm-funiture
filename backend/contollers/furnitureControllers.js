@@ -1,4 +1,5 @@
 import Furniture from "../models/furnitureModel.js";
+import fs from "fs";
 
 const addFurniture = async (req, res) => {
   let image_filename = `${req.file.filename}`;
@@ -9,10 +10,10 @@ const addFurniture = async (req, res) => {
     furniture.lastUpdated = Date.now();
 
     await furniture.save();
-    res.json({ success: true, message: "Food Added" });
+    res.json({ success: true, message: "Furniture Added" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Error in adding food" });
+    res.json({ success: false, message: "Error in adding furniture" });
   }
 };
 
@@ -23,7 +24,7 @@ const listFurniture = async (req, res) => {
       return res.json({ success: false, message: "No furnitures found" });
     }
 
-    res.json({ success: false, furnitures });
+    res.json({ success: true, furnitures });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "failed to get furniture" });
@@ -33,9 +34,11 @@ const listFurniture = async (req, res) => {
 const removeFurniture = async (req, res) => {
   try {
     const furniture = await Furniture.findById(req.body.id);
-    furniture.unlink(`uploads/${furniture.image}`, () => {});
+
+    fs.unlink(`uploads/${furniture.image}`, () => {});
 
     await Furniture.findByIdAndDelete(req.body.id);
+
     res.json({ success: false, message: "Furniture Removed " });
   } catch (error) {
     console.log(error);
@@ -43,4 +46,58 @@ const removeFurniture = async (req, res) => {
   }
 };
 
-export { addFurniture, listFurniture, removeFurniture };
+const getFurniture = async (req, res) => {
+  try {
+    const furniture = await Furniture.findById(req.body.id);
+
+    if (!furniture) {
+      res.json({ success: false, message: "Furniture does not exist" });
+    }
+
+    res.json({ success: false, furniture });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error finding Furniture" });
+  }
+};
+
+const updateFurniture = async (req, res) => {
+  try {
+    const furniture = await Furniture.findById(req.body.id);
+
+    if (!furniture) {
+      res.json({ success: false, message: "Furniture does not exist" });
+    }
+
+    furniture.name = req.body.name;
+    furniture.description = req.body.description;
+    furniture.short = req.body.short;
+    furniture.category = req.body.category;
+    furniture.best = req.body.best;
+    furniture.frame = req.body.frame;
+    furniture.colors = req.body.colors;
+    furniture.priceCat = req.body.priceCat;
+    furniture.oldPrice = req.body.oldPrice;
+    furniture.newPrice = req.body.newPrice;
+    furniture.lastUpdated = Date.now();
+
+    if (req.file) {
+      let image_filename = `${req.file.filename}`;
+      furniture.image = image_filename;
+    }
+
+    furniture.save();
+    res.json({ success: false, message: "Furniture updated Successfuly" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error in adding furniture" });
+  }
+};
+
+export {
+  addFurniture,
+  listFurniture,
+  removeFurniture,
+  getFurniture,
+  updateFurniture,
+};

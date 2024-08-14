@@ -1,31 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./List.css";
 
-const List = () => {
+import toast from "react-hot-toast";
+
+const List = ({ data, removeProduct, refetch }) => {
+  const url = import.meta.env.VITE_API_BASE_URL;
+
+  const [products, setProducts] = useState([]);
+
+  const allProducts = async () => {
+    if (data) {
+      setProducts(data.furnitures);
+    } else {
+      toast.error("Can't fetch Data");
+    }
+  };
+
+  const helpRemoveProduct = async (data) => {
+    const response = await removeProduct(data);
+    await refetch();
+    if (response) {
+      toast.success(response.message || "Product removed ");
+    } else {
+      toast.error(response.message || "Couldnt remove product");
+    }
+
+    allProducts();
+  };
+
+  useEffect(() => {
+    allProducts();
+  }, [data]);
+
   return (
     <div className="list add flex-col">
-      <p>All Food List</p>
+      <p>All Furnitures Products</p>
       <div className="list-table">
         <div className="list-table-format title">
           <b>Image</b>
           <b>Name</b>
           <b>Category</b>
-          <b>Price</b>
+          <b> New Price</b>
           <b>Action</b>
         </div>
-        {/* {list.map((item, index) => {
+        {products.map((item, index) => {
           return (
             <div key={index} className="list-table-format">
               <img src={`${url}/images/` + item.image} alt="" />
               <p>{item.name}</p>
               <p>{item.category}</p>
-              <p>{item.price}</p>
-              <p onClick={() => removeFood(item._id)} className="cursor">
+              <p>{item.newPrice}</p>
+              <p onClick={() => helpRemoveProduct(item._id)} className="cursor">
                 X
               </p>
             </div>
           );
-        })} */}
+        })}
       </div>
     </div>
   );

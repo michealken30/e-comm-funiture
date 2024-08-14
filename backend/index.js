@@ -16,7 +16,7 @@ Db();
 
 app.use("/api/my/user", UserRoute);
 app.use("/api/furniture", furnitureRouter);
-app.use("/image", express.static("uploads"));
+app.use("/images", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send("You are welcome");
