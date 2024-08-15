@@ -3,7 +3,7 @@ import "./List.css";
 
 import toast from "react-hot-toast";
 
-const List = ({ data, removeProduct, refetch }) => {
+const List = ({ data, removeProduct, refetch, onEditProduct }) => {
   const url = import.meta.env.VITE_API_BASE_URL;
 
   const [products, setProducts] = useState([]);
@@ -42,6 +42,7 @@ const List = ({ data, removeProduct, refetch }) => {
           <b>Category</b>
           <b> New Price</b>
           <b>Action</b>
+          <b>Action</b>
         </div>
         {products.map((item, index) => {
           return (
@@ -52,6 +53,9 @@ const List = ({ data, removeProduct, refetch }) => {
               <p>{item.newPrice}</p>
               <p onClick={() => helpRemoveProduct(item._id)} className="cursor">
                 X
+              </p>
+              <p onClick={() => onEditProduct(item)} className="cursor">
+                Edit
               </p>
             </div>
           );

@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import {
   addFurniture,
+  getFurniture,
   listFurniture,
   removeFurniture,
 } from "../contollers/furnitureControllers.js";
@@ -20,5 +21,7 @@ const upload = multer({ storage: storage });
 furnitureRouter.post("/add", upload.single("image"), addFurniture);
 furnitureRouter.get("/list", listFurniture);
 furnitureRouter.post("/remove", removeFurniture);
+furnitureRouter.post("/get", getFurniture);
+furnitureRouter.post("/update", upload.single("image"), addFurniture);
 
 export default furnitureRouter;

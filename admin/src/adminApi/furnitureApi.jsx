@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useMutation, useQuery } from "react-query";
 
-export const useAddFurniture = () => {
-  const API_URL = import.meta.env.VITE_API_BASE_URL;
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
+export const useAddFurniture = () => {
   const addFurniture = async (data) => {
     try {
       const response = await axios.post(`${API_URL}/api/furniture/add`, data);
@@ -22,8 +22,6 @@ export const useAddFurniture = () => {
 };
 
 export const useGetFurniture = () => {
-  const API_URL = import.meta.env.VITE_API_BASE_URL;
-
   const GetFurniture = async () => {
     try {
       const response = await axios.get(`${API_URL}/api/furniture/list`);
@@ -70,5 +68,53 @@ export const useRemoveFurniture = () => {
     removeProduct,
     isLoading,
     isError,
+  };
+};
+
+// export const useGetMyFurniture = () => {
+//   const API_URL = import.meta.env.VITE_API_BASE_URL;
+
+//   const getMyFurniture = async (data) => {
+//     try {
+//       const response = await axios.post(`${API_URL}/api/furniture/get`, {
+//         id: data,
+//       });
+//       return response.data;
+//     } catch (error) {
+//       throw new Error(response?.data?.message || "Cant get furniture");
+//     }
+//   };
+
+//   const {
+//     mutateAsync: myProduct,
+//     isLoading,
+//     isError,
+//   } = useMutation(getMyFurniture);
+
+//   return {
+//     myProduct,
+//     isLoading,
+//     isError,
+//   };
+// };
+
+export const useUpdateFurniture = () => {
+  const updateFurniture = async (data) => {
+    try {
+      const response = await axios.post(`${API_URL}/api/furniture/add`, data);
+      return response.data;
+    } catch (error) {
+      throw new Error(
+        error?.response?.data?.message || "Can't update furniture"
+      );
+    }
+  };
+
+  const { mutateAsync: updateProduct, isLoading } =
+    useMutation(updateFurniture);
+
+  return {
+    updateProduct,
+    isLoading,
   };
 };

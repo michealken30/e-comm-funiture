@@ -1,10 +1,15 @@
 import "./Add.css";
 import { assets } from "../../assets/assets";
-import { useState } from "react";
-import { useAddFurniture } from "../../adminApi/furnitureApi";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const Add = ({ onSave, isLoading, refetch }) => {
+const Add = ({
+  onSave,
+  isLoading,
+  refetch,
+  selectedProduct,
+  setSelectedProduct,
+}) => {
   const [data, setData] = useState({
     name: "",
     description: "",
@@ -19,6 +24,25 @@ const Add = ({ onSave, isLoading, refetch }) => {
     newPrice: "",
   });
   const [image, setImage] = useState(false);
+
+  useEffect(() => {
+    if (selectedProduct) {
+      setData({
+        name: selectedProduct.name,
+        description: selectedProduct.description,
+        short: selectedProduct.short,
+        category: selectedProduct.category,
+        seat: selectedProduct.seat,
+        best: selectedProduct.best,
+        frame: selectedProduct.frame,
+        colors: selectedProduct.colors,
+        priceCat: selectedProduct.priceCat,
+        oldPrice: selectedProduct.oldPrice,
+        newPrice: selectedProduct.newPrice,
+      });
+      setImage(selectedProduct.image);
+    }
+  }, [selectedProduct]);
 
   const validateFormData = () => {
     if (!image) return "Product Image is required.";
@@ -46,6 +70,9 @@ const Add = ({ onSave, isLoading, refetch }) => {
     formData.append("oldPrice", Number(data.oldPrice));
     formData.append("newPrice", Number(data.newPrice));
     formData.append("image", image);
+    if (selectedProduct) {
+      formData.append("id", selectedProduct.id);
+    }
 
     const response = await onSave(formData);
     if (response) {
@@ -63,6 +90,7 @@ const Add = ({ onSave, isLoading, refetch }) => {
         newPrice: "",
       });
       setImage(false);
+      setSelectedProduct(null);
       await refetch();
       toast.success(response.message || "Product Added");
     } else {
@@ -82,8 +110,14 @@ const Add = ({ onSave, isLoading, refetch }) => {
           <p>Upload Image</p>
           <label htmlFor="image">
             <img
-              src={image ? URL.createObjectURL(image) : assets.upload_area}
-              alt=""
+              src={
+                image
+                  ? typeof image === "string"
+                    ? `${import.meta.env.VITE_API_BASE_URL}/images/${image}`
+                    : URL.createObjectURL(image)
+                  : assets.upload_area
+              }
+              alt="Product"
             />
           </label>
           <input
@@ -91,7 +125,7 @@ const Add = ({ onSave, isLoading, refetch }) => {
             type="file"
             id="image"
             hidden
-            required
+            required={!selectedProduct}
           />
         </div>
         <div className="add-product-name flex-col">
@@ -130,7 +164,11 @@ const Add = ({ onSave, isLoading, refetch }) => {
         <div className="add-category-price">
           <div className="add-category flex-col">
             <p>Category</p>
-            <select onChange={onChangeHandler} name="category">
+            <select
+              onChange={onChangeHandler}
+              name="category"
+              value={data.category}
+            >
               <option value="Comer sofas">Comer sofas</option>
               <option value="L-shipped Sofas">L-shipped Sofas</option>
               <option value="Sofas cum Bed">Sofas cum Bed</option>
@@ -139,28 +177,32 @@ const Add = ({ onSave, isLoading, refetch }) => {
           </div>
           <div className="add-category flex-col">
             <p>Seat </p>
-            <select onChange={onChangeHandler} name="seat">
+            <select onChange={onChangeHandler} name="seat" value={data.seat}>
               <option value="Leather">Leather</option>
               <option value="Fabrics">Fabrics</option>
             </select>
           </div>
           <div className="add-category flex-col">
             <p>Best </p>
-            <select onChange={onChangeHandler} name="best">
+            <select onChange={onChangeHandler} name="best" value={data.best}>
               <option value="Best Seller">Best Seller</option>
               <option value="Best Collections">Best Collections</option>
             </select>
           </div>
           <div className="add-category flex-col">
             <p>Frame Materials</p>
-            <select onChange={onChangeHandler} name="frame">
+            <select onChange={onChangeHandler} name="frame" value={data.frame}>
               <option value="Solid wood">Solid wood</option>
               <option value="Engerineering Wood">Engerineering Wood</option>
             </select>
           </div>
           <div className="add-category flex-col">
             <p>Colors</p>
-            <select onChange={onChangeHandler} name="colors">
+            <select
+              onChange={onChangeHandler}
+              name="colors"
+              value={data.colors}
+            >
               <option value="Black">Black</option>
               <option value="Blue">Blue</option>
               <option value="Brown">Brown</option>
@@ -172,7 +214,11 @@ const Add = ({ onSave, isLoading, refetch }) => {
           </div>
           <div className="add-category flex-col">
             <p>Price cat</p>
-            <select onChange={onChangeHandler} name="priceCat">
+            <select
+              onChange={onChangeHandler}
+              name="priceCat"
+              value={data.priceCat}
+            >
               <option value="Under $1000">Under $1000</option>
               <option value="$1000 - $2500">$1000 - $2500</option>
               <option value="$2500 - $5000">$2500 - $5000</option>
@@ -204,7 +250,11 @@ const Add = ({ onSave, isLoading, refetch }) => {
           </div>
         </div>
         <button type="submit" className="add-btn">
-          {isLoading ? "Loading..." : "Add Product"}
+          {isLoading
+            ? "Loading..."
+            : selectedProduct
+            ? "Update Product"
+            : "Add Product"}
         </button>
       </form>
     </div>
