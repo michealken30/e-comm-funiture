@@ -17,10 +17,15 @@ const furnitureSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  seat: {
+    type: String,
+    required: true,
+  },
   best: {
     type: String,
     required: true,
   },
+
   frame: {
     type: String,
     required: true,

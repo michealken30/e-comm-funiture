@@ -30,6 +30,7 @@ const List = ({ data, removeProduct, refetch, onEditProduct }) => {
 
   useEffect(() => {
     allProducts();
+    refetch();
   }, [data]);
 
   return (

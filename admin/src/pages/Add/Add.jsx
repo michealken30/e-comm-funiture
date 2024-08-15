@@ -41,6 +41,21 @@ const Add = ({
         newPrice: selectedProduct.newPrice,
       });
       setImage(selectedProduct.image);
+    } else {
+      setData({
+        name: "",
+        description: "",
+        short: "",
+        category: "Comer sofas",
+        seat: "Leather",
+        best: "Best Seller",
+        frame: "Solid wood",
+        colors: "Black",
+        priceCat: "Under $1000",
+        oldPrice: "",
+        newPrice: "",
+      });
+      setImage(false);
     }
   }, [selectedProduct]);
 
@@ -71,7 +86,7 @@ const Add = ({
     formData.append("newPrice", Number(data.newPrice));
     formData.append("image", image);
     if (selectedProduct) {
-      formData.append("id", selectedProduct.id);
+      formData.append("id", selectedProduct._id);
     }
 
     const response = await onSave(formData);
@@ -90,8 +105,8 @@ const Add = ({
         newPrice: "",
       });
       setImage(false);
-      setSelectedProduct(null);
       await refetch();
+      setSelectedProduct(null);
       toast.success(response.message || "Product Added");
     } else {
       toast.error(response.message || "Can't add Product");

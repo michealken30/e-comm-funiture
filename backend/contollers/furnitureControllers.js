@@ -46,22 +46,8 @@ const removeFurniture = async (req, res) => {
   }
 };
 
-const getFurniture = async (req, res) => {
-  try {
-    const furniture = await Furniture.findById(req.body.id);
-
-    if (!furniture) {
-      res.json({ success: false, message: "Furniture does not exist" });
-    }
-
-    res.json({ success: false, furniture });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: "Error finding Furniture" });
-  }
-};
-
 const updateFurniture = async (req, res) => {
+  console.log(req.body);
   try {
     const furniture = await Furniture.findById(req.body.id);
 
@@ -74,6 +60,7 @@ const updateFurniture = async (req, res) => {
     furniture.short = req.body.short;
     furniture.category = req.body.category;
     furniture.best = req.body.best;
+    furniture.seat = req.body.seat;
     furniture.frame = req.body.frame;
     furniture.colors = req.body.colors;
     furniture.priceCat = req.body.priceCat;
@@ -94,10 +81,4 @@ const updateFurniture = async (req, res) => {
   }
 };
 
-export {
-  addFurniture,
-  listFurniture,
-  removeFurniture,
-  getFurniture,
-  updateFurniture,
-};
+export { addFurniture, listFurniture, removeFurniture, updateFurniture };
