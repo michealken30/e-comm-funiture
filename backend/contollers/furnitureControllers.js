@@ -47,7 +47,6 @@ const removeFurniture = async (req, res) => {
 };
 
 const updateFurniture = async (req, res) => {
-  console.log(req.body);
   try {
     const furniture = await Furniture.findById(req.body.id);
 
