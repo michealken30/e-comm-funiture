@@ -1,10 +1,20 @@
-import React from "react";
-import data from "../../utils/collections.json";
+import React, { useEffect } from "react";
+// import data from "../../utils/collections.json";
 import "./BestCollections.css";
 import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
-const BestCollections = ({ title }) => {
+const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
+
+const BestCollections = ({ title, data, refetch, best }) => {
+  useEffect(() => {
+    refetch();
+  }, [data]);
+
+  const bestCollections = data
+    .filter((item) => item.best === `${best}`)
+    .slice(0, 4);
+
   return (
     <section className="app">
       <div className="">
@@ -16,35 +26,39 @@ const BestCollections = ({ title }) => {
         </div>
 
         <div className="flexCenter media-flex">
-          {data.map((card) => (
+          {bestCollections.map((card) => (
             <Link
-              to="/details/1"
+              to="/details/"
               className="border2 "
               data-aos="fade-up"
               data-aos-delay={card.aosDelay}
             >
               <div key={card.id} className="flexColStart2 r-card2">
                 <div>
-                  <img src={card.image} alt="home" className="img-1" />
+                  <img
+                    src={`${API_BASE_URI}/images/` + card.image}
+                    alt="home"
+                    className="img-1"
+                  />
                 </div>
 
                 <div className="wishlist2">
                   <span className="name-span">{card.name}</span>
                   <CiHeart className="mt-left" />
                 </div>
-                <span className="">{card.detail}</span>
+                <span className="">{card.short}</span>
                 <span className="r-price">
                   <div className="old-price">
                     <span>$</span>
                     <span>
-                      <del>{card.OldPrice}</del>
+                      <del>{card.oldPrice}</del>
                     </span>
                   </div>
 
                   <div>
                     <span>$</span>
 
-                    <span>{card.NewPrice}</span>
+                    <span>{card.newPrice}</span>
                   </div>
                 </span>
               </div>

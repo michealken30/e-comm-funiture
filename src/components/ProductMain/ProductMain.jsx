@@ -1,9 +1,15 @@
+import { useEffect } from "react";
 import "./ProductMain.css";
-import data from "../../utils/collections2.json";
+// import data from "../../utils/collections2.json";
 import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
-const ProductMain = () => {
+const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
+
+const ProductMain = ({ data, refetch }) => {
+  useEffect(() => {
+    refetch();
+  }, [data]);
   return (
     <div class="second-section">
       <div class="container">
@@ -31,24 +37,24 @@ const ProductMain = () => {
               // data-aos-delay={card.aosDelay}
             >
               <div key={card.id} className="flexColStart r-card">
-                <img src={card.image} alt="home" />
+                <img src={`${API_BASE_URI}/images/` + card.image} alt="home" />
                 <div className="wishlist">
                   <span className="">{card.name}</span>
                   <CiHeart />
                 </div>
-                <span className="">{card.detail}</span>
+                <span className="">{card.short}</span>
                 <span className="r-price">
                   <div className="old-price">
                     <del>
                       <span>$</span>
-                      <span>{card.OldPrice}</span>
+                      <span>{card.oldPrice}</span>
                     </del>
                   </div>
 
                   <div>
                     <span>$</span>
 
-                    <span>{card.NewPrice}</span>
+                    <span>{card.newPrice}</span>
                   </div>
                 </span>
               </div>

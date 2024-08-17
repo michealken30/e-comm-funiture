@@ -3,8 +3,10 @@ import ProductSideBar from "../../components/ProductSideBar/ProductSideBar";
 import ProductMain from "../../components/ProductMain/ProductMain";
 import "./ProductPage.css";
 import { Link } from "react-router-dom";
+import { useGetFurniture } from "../../Api/furnituresApi.js";
 
 const ProductPage = () => {
+  const { products, refetch } = useGetFurniture();
   return (
     <div className="app">
       <div class="container product-cont">
@@ -18,7 +20,7 @@ const ProductPage = () => {
       </div>
       <div className="two-sections1">
         <ProductSideBar />
-        <ProductMain />
+        <ProductMain data={products} refetch={refetch} />
       </div>
     </div>
   );
