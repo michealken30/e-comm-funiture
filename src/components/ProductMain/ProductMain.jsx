@@ -31,7 +31,7 @@ const ProductMain = ({ data, refetch }) => {
         <div class="grid-class3 media-flex2">
           {data.map((card) => (
             <Link
-              to="/details/1"
+              to={`/details/${card._id}`}
               className="border"
               // data-aos="fade-up"
               // data-aos-delay={card.aosDelay}

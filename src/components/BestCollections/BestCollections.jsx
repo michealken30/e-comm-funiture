@@ -11,7 +11,7 @@ const BestCollections = ({ title, data, refetch, best }) => {
     refetch();
   }, [data]);
 
-  const bestCollections = data
+  const bestCollections = (data || [])
     .filter((item) => item.best === `${best}`)
     .slice(0, 4);
 
