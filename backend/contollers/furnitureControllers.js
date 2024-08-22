@@ -80,4 +80,80 @@ const updateFurniture = async (req, res) => {
   }
 };
 
-export { addFurniture, listFurniture, removeFurniture, updateFurniture };
+const searchFurniture = async (req, res) => {
+  console.log(req.query);
+  try {
+    const searchQuery = req.query.searchQuery || "";
+    const selectedCategories = req.query.selectedCategories || "";
+    const selectedMaterials = req.query.selectedMaterials || "";
+    const selectedColors = req.query.selectedColors || "";
+    const priceRange = req.query.priceRange || "";
+    const sortOption = req.query.sortOption || "lastUpdated";
+    const page = parseInt(req.query.page) || 1;
+
+    console.log(selectedColors);
+
+    let query = {};
+
+    if (searchQuery) {
+      const searchRegex = new RegExp(searchQuery, i);
+      query["$or"] = [{ nmae: searchRegex }, { description: searchRegex }];
+    }
+
+    if (selectedCategories) {
+      const categoriesArray = selectedCategories.split(",");
+      query["category"] = { $in: categoriesArray };
+    }
+
+    if (selectedMaterials) {
+      const materialsArray = selectedMaterials.split(",");
+      query["$or"] = [
+        { seat: { $in: materialsArray } },
+        { frame: { $in: materialsArray } },
+      ];
+    }
+
+    if (selectedColors) {
+      const colorsArray = selectedColors.split(",");
+      query["colors"] = { $in: colorsArray };
+    }
+
+    if (priceRange) {
+      const [minPrice, maxPrice] = priceRange.split(",").map(Number);
+
+      query["newPrice"] = { $gte: minPrice, $lte: maxPrice };
+    }
+
+    const pageSize = 9;
+    const skip = (page - 1) * pageSize;
+
+    const furnitureItems = await Furniture.find(query)
+      .sort({ [sortOption]: 1 })
+      .skip(skip)
+      .limit(pageSize)
+      .lean();
+
+    const total = await Furniture.countDocuments(query);
+
+    const response = {
+      data: furnitureItems,
+      pagination: {
+        total,
+        page,
+        pages: Math.ceil(total / pageSize),
+      },
+    };
+
+    res.json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  addFurniture,
+  listFurniture,
+  removeFurniture,
+  updateFurniture,
+  searchFurniture,
+};
