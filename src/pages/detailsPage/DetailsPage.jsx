@@ -20,7 +20,9 @@ const DetailsPage = () => {
 
   const selectedProduct = isSuccess ? findProductById(id, products) : null;
 
-  console.log(selectedProduct);
+  if (!selectedProduct) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -29,9 +31,9 @@ const DetailsPage = () => {
           <Link to="/" className="home-color">
             Home
           </Link>
-          <span class="health-style"> &gt;</span> Furniture{" "}
-          <span class="health-style"> &gt;</span> Sofa
-          <span class="health-style"> &gt;</span> LuxeComfort Sectional Sofa
+          <span class="health-style"> &gt;</span> Furniture
+          <span class="health-style"> &gt;</span> {selectedProduct.category}
+          <span class="health-style"> &gt;</span> {selectedProduct.name}
         </p>
         <div className="two-sections">
           <LeftDetailCard item={selectedProduct} />

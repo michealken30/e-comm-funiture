@@ -16,11 +16,31 @@ const LeftDetailCard = ({ item }) => {
         </div>
 
         <div className="img-flex">
-          <img src="/Image6.png" alt="" />
-          <img src="/Image6.png" alt="" />
-          <img src="/Image6.png" alt="" />
-          <img src="/Image6.png" alt="" />
-          <img src="/Image6.png" alt="" />
+          <img
+            className="full-width"
+            src={`${API_BASE_URI}/images/` + item.image}
+            alt=""
+          />
+          <img
+            className="full-width"
+            src={`${API_BASE_URI}/images/` + item.image}
+            alt=""
+          />
+          <img
+            className="full-width"
+            src={`${API_BASE_URI}/images/` + item.image}
+            alt=""
+          />
+          <img
+            className="full-width"
+            src={`${API_BASE_URI}/images/` + item.image}
+            alt=""
+          />
+          <img
+            className="full-width"
+            src={`${API_BASE_URI}/images/` + item.image}
+            alt=""
+          />
         </div>
         <p className="details">{item.description}</p>
         <p className="details">Delivery and assembly prices not included.</p>

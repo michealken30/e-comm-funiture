@@ -1,15 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./ProductMain.css";
 // import data from "../../utils/collections2.json";
 import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { useSearchFurniture } from "../../Api/furnituresApi";
 
 const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
-const ProductMain = ({ data, refetch }) => {
+const ProductMain = (filters) => {
+  const { products, isLoading, refetch } = useSearchFurniture(filters);
+  console.log(filters);
+
   useEffect(() => {
     refetch();
-  }, [data]);
+  }, [filters, refetch]);
+
+  console.log(products);
+
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div class="second-section">
       <div class="container">
@@ -29,7 +37,7 @@ const ProductMain = ({ data, refetch }) => {
           <span>Featured</span>
         </div>
         <div class="grid-class3 media-flex2">
-          {data.map((card) => (
+          {products.data.map((card) => (
             <Link
               to={`/details/${card._id}`}
               className="border"

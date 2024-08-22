@@ -1,17 +1,27 @@
 import React from "react";
 import "./Filter.css";
 
-const Filters = ({ data, title }) => {
+const Filters = ({ data, title, onFilterChange }) => {
+  const handleCheckboxChange = (event) => {
+    const { checked, value } = event.target;
+    onFilterChange(checked ? value : null);
+  };
+
   return (
     <div className="">
-      <div class="">
-        <p class="pdt-class">{title}</p>
+      <div className="">
+        <p className="pdt-class">{title}</p>
       </div>
       <div className="check-column">
-        {data.map((color, i) => (
+        {data.map((item, i) => (
           <div className="sale-box4" key={i}>
-            <input class="sale-box" type="checkbox" />
-            <span>{color}</span>
+            <input
+              className="sale-box"
+              type="checkbox"
+              value={item}
+              onChange={handleCheckboxChange}
+            />
+            <span>{item}</span>
           </div>
         ))}
       </div>

@@ -10,8 +10,6 @@ import { FaCartShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 const RightDetailCard = ({ item }) => {
-  console.log(item);
-  console.log(item.name);
   return (
     <div className="right-section">
       <div className="right-card">
@@ -27,19 +25,19 @@ const RightDetailCard = ({ item }) => {
             <IoShareSocialOutline />
           </span>
         </div>
-        <button className="button-brown">Brown</button>
+        <button className="button-brown">{item.colors}</button>
         <span className="r-price">
           <div className="old-price">
             <span>$</span>
             <span>
-              <del>{item.newPrice}</del>
+              <del>{item.oldPrice}</del>
             </span>
           </div>
 
           <div>
             <span>$</span>
 
-            <span>{item.oldPrice}</span>
+            <span>{item.newPrice}</span>
           </div>
         </span>
         <div className="review">
@@ -61,7 +59,7 @@ const RightDetailCard = ({ item }) => {
             </span>
           </div>
           <div>
-            <span>{item.review}</span>
+            <span>16.4k Reviews</span>
           </div>
         </div>
         <div className="nature-review">
@@ -69,19 +67,19 @@ const RightDetailCard = ({ item }) => {
             <CiLineHeight />
           </span>
 
-          <span>{item.natue}</span>
+          <span>soft</span>
         </div>
         <div className="iswash-review">
           <span>
             <MdOutlineBlock />
           </span>
-          <span>{item.iswash}</span>
+          <span>Washable Cover</span>
         </div>
         <div className="waranty-review">
           <span>
             <TbSquareLetterWFilled />
           </span>
-          <span>{item.warranty}</span>
+          <span>2 year warranty</span>
         </div>
         <Link to="/cart">
           <button className="add-to-cart">

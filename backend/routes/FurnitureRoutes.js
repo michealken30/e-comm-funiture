@@ -4,6 +4,7 @@ import {
   addFurniture,
   listFurniture,
   removeFurniture,
+  searchFurniture,
   updateFurniture,
 } from "../contollers/furnitureControllers.js";
 
@@ -22,5 +23,6 @@ furnitureRouter.post("/add", upload.single("image"), addFurniture);
 furnitureRouter.get("/list", listFurniture);
 furnitureRouter.post("/remove", removeFurniture);
 furnitureRouter.post("/update", upload.single("image"), updateFurniture);
+furnitureRouter.get("/search", searchFurniture);
 
 export default furnitureRouter;
