@@ -81,23 +81,22 @@ const updateFurniture = async (req, res) => {
 };
 
 const searchFurniture = async (req, res) => {
-  console.log(req.query);
   try {
     const searchQuery = req.query.searchQuery || "";
     const selectedCategories = req.query.selectedCategories || "";
-    const selectedMaterials = req.query.selectedMaterials || "";
+    const selectedMaterial1 = req.query.selectedMaterial1 || "";
+    const selectedMaterial2 = req.query.selectedMaterial2 || "";
     const selectedColors = req.query.selectedColors || "";
     const priceRange = req.query.priceRange || "";
     const sortOption = req.query.sortOption || "lastUpdated";
-    const page = parseInt(req.query.page) || 1;
 
-    console.log(selectedColors);
+    const page = parseInt(req.query.page) || 1;
 
     let query = {};
 
     if (searchQuery) {
-      const searchRegex = new RegExp(searchQuery, i);
-      query["$or"] = [{ nmae: searchRegex }, { description: searchRegex }];
+      const searchRegex = new RegExp(searchQuery, "i");
+      query["$or"] = [{ name: searchRegex }, { description: searchRegex }];
     }
 
     if (selectedCategories) {
@@ -105,12 +104,14 @@ const searchFurniture = async (req, res) => {
       query["category"] = { $in: categoriesArray };
     }
 
-    if (selectedMaterials) {
-      const materialsArray = selectedMaterials.split(",");
-      query["$or"] = [
-        { seat: { $in: materialsArray } },
-        { frame: { $in: materialsArray } },
-      ];
+    if (selectedMaterial1) {
+      const material1Array = selectedMaterial1.split(",");
+      query["seat"] = { $in: material1Array };
+    }
+
+    if (selectedMaterial2) {
+      const material2Array = selectedMaterial2.split(",");
+      query["frame"] = { $in: material2Array };
     }
 
     if (selectedColors) {
@@ -119,16 +120,36 @@ const searchFurniture = async (req, res) => {
     }
 
     if (priceRange) {
-      const [minPrice, maxPrice] = priceRange.split(",").map(Number);
-
+      const [minPrice, maxPrice] = priceRange
+        .replace(/\$/g, "")
+        .split(" - ")
+        .map(Number);
       query["newPrice"] = { $gte: minPrice, $lte: maxPrice };
     }
 
     const pageSize = 9;
     const skip = (page - 1) * pageSize;
 
+    let sortCriteria = {};
+    switch (sortOption) {
+      case "priceAsc":
+        sortCriteria = { newPrice: 1 };
+        break;
+      case "priceDesc":
+        sortCriteria = { newPrice: -1 };
+        break;
+      case "dateAsc":
+        sortCriteria = { lastUpdated: 1 };
+        break;
+      case "dateDesc":
+        sortCriteria = { lastUpdated: -1 };
+        break;
+      default:
+        sortCriteria = { lastUpdated: -1 };
+    }
+
     const furnitureItems = await Furniture.find(query)
-      .sort({ [sortOption]: 1 })
+      .sort(sortCriteria)
       .skip(skip)
       .limit(pageSize)
       .lean();
@@ -147,6 +168,7 @@ const searchFurniture = async (req, res) => {
     res.json(response);
   } catch (error) {
     console.log(error);
+    res.status(500).json({ error: "Server error" });
   }
 };
 

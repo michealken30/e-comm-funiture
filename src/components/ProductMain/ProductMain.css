@@ -91,6 +91,7 @@
   margin-right: 50px;
   font-size: 14px;
   font-weight: 300;
+  cursor: pointer;
 }
 
 .paginate-div {
@@ -100,21 +101,8 @@
   gap: 12px;
   font-size: 12px;
   margin-top: 20px;
+  cursor: pointer;
 }
-
-/* .prev {
-  margin-right: 10px;
-}
-
-.arrow {
-  font-size: 12px;
-  margin-right: 5px;
-}
-
-.next {
-  margin-left: 10px;
-  margin-right: 50px;
-} */
 
 .active-page {
   border-radius: 2px;

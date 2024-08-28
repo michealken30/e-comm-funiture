@@ -29,14 +29,59 @@ export const useGetFurniture = () => {
   };
 };
 
-export const useSearchFurniture = (filters) => {
-  console.log(filters);
+export const useSearchFurniture = (filters = {}) => {
   const searchFurniture = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URI}/api/furniture/search`, {
-        params: filters,
-      });
-      console.log(response.data);
+      const {
+        category,
+        material1,
+        material2,
+        color,
+        price,
+        searchQuery,
+        sortOption,
+        page = 1,
+      } = filters;
+
+      const queryParams = new URLSearchParams();
+
+      if (searchQuery && searchQuery.length > 0) {
+        queryParams.append("searchQuery", searchQuery.join(","));
+      }
+
+      if (category && category.length > 0) {
+        queryParams.append("selectedCategories", category.join(","));
+      }
+
+      if (material1 && material1.length > 0) {
+        queryParams.append("selectedMaterial1", material1.join(","));
+      }
+
+      if (material2 && material2.length > 0) {
+        queryParams.append("selectedMaterial2", material2.join(","));
+      }
+
+      if (color && color.length > 0) {
+        queryParams.append("selectedColors", color.join(","));
+      }
+
+      if (price) {
+        queryParams.append("priceRange", price);
+      }
+
+      if (sortOption) {
+        queryParams.append("sortOption", sortOption);
+      }
+      if (page && !isNaN(page)) {
+        queryParams.append("page", page);
+      } else {
+        queryParams.append("page", 1);
+      }
+
+      const response = await axios.get(
+        `${API_BASE_URI}/api/furniture/search?${queryParams.toString()}`
+      );
+
       return response.data;
     } catch (error) {
       throw new Error(

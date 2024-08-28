@@ -1,56 +1,114 @@
 import { useEffect, useState } from "react";
 import "./ProductMain.css";
-// import data from "../../utils/collections2.json";
 import { CiHeart } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSearchFurniture } from "../../Api/furnituresApi";
 
 const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
-const ProductMain = (filters) => {
+const ProductMain = ({ filters, setFilters }) => {
   const { products, isLoading, refetch } = useSearchFurniture(filters);
-  console.log(filters);
+  const [sortOption, setSortOption] = useState("dateDesc");
+  const navigate = useNavigate();
+
+  const fetchAllProducts = () => {
+    navigate("/search");
+    window.location.reload();
+  };
+
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [products]);
+
+  const handleSortChange = (newSortOption) => {
+    if (newSortOption === "all") {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        sortOption: "",
+        page: 1,
+      }));
+      fetchAllProducts();
+    } else {
+      setSortOption(newSortOption);
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        sortOption: newSortOption,
+        page: 1,
+      }));
+    }
+  };
+
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= (products.pagination?.pages || 1)) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        page,
+      }));
+    }
+  };
 
   useEffect(() => {
     refetch();
-  }, [filters, refetch]);
-
-  console.log(products);
+  }, [filters]);
 
   if (isLoading) return <div>Loading...</div>;
+
+  const currentPage = filters.page || 1;
+  const totalPages = products.pagination?.pages || 1;
+
   return (
-    <div class="second-section">
-      <div class="container">
+    <div className="second-section">
+      <div className="container">
         <div className="heading">
           <p>
             All Sofa<span className="span-title">Sorted by:</span>
-            <span className="active none">Best-seller</span>
+            <span className="active none">
+              {sortOption ? sortOption : "All products"}
+            </span>
           </p>
         </div>
         <div className="sortFlex">
-          <span>Relevance</span>
-          <span className="active">Best Selling</span>
-          <span>Price: Low to high</span>
-          <span>Price: High to Low</span>
-          <span>Date: Old to New</span>
-          <span>Date: New to Old</span>
-          <span>Featured</span>
+          <span
+            className={sortOption === "dateDesc" ? "active" : ""}
+            onClick={() => handleSortChange("dateDesc")}
+          >
+            Date: New to Old
+          </span>
+          <span
+            className={sortOption === "dateAsc" ? "active" : ""}
+            onClick={() => handleSortChange("dateAsc")}
+          >
+            Date: Old to New
+          </span>
+          <span
+            className={sortOption === "priceDesc" ? "active" : ""}
+            onClick={() => handleSortChange("priceDesc")}
+          >
+            Price: High to Low
+          </span>
+          <span
+            className={sortOption === "priceAsc" ? "active" : ""}
+            onClick={() => handleSortChange("priceAsc")}
+          >
+            Price: Low to High
+          </span>
+          <span
+            className={sortOption === "" ? "active" : ""}
+            onClick={() => handleSortChange("all")}
+          >
+            All products
+          </span>
         </div>
-        <div class="grid-class3 media-flex2">
+        <div className="grid-class3 media-flex2">
           {products.data.map((card) => (
-            <Link
-              to={`/details/${card._id}`}
-              className="border"
-              // data-aos="fade-up"
-              // data-aos-delay={card.aosDelay}
-            >
-              <div key={card.id} className="flexColStart r-card">
-                <img src={`${API_BASE_URI}/images/` + card.image} alt="home" />
+            <Link to={`/details/${card._id}`} className="border" key={card.id}>
+              <div className="flexColStart r-card">
+                <img src={`${API_BASE_URI}/images/${card.image}`} alt="home" />
                 <div className="wishlist">
-                  <span className="">{card.name}</span>
+                  <span>{card.name}</span>
                   <CiHeart />
                 </div>
-                <span className="">{card.short}</span>
+                <span>{card.short}</span>
                 <span className="r-price">
                   <div className="old-price">
                     <del>
@@ -58,10 +116,8 @@ const ProductMain = (filters) => {
                       <span>{card.oldPrice}</span>
                     </del>
                   </div>
-
                   <div>
                     <span>$</span>
-
                     <span>{card.newPrice}</span>
                   </div>
                 </span>
@@ -70,19 +126,31 @@ const ProductMain = (filters) => {
           ))}
         </div>
       </div>
-      <div class="container paginate-div">
-        <span className="prev">
-          <span className="arrow">&larr;</span>Previous
-        </span>
-        <span class="paginate active-page">1</span>
-        <span class="paginate">2</span>
-        <span class="paginate">3</span>
-        <span class="paginate">...</span>
-        <span class="paginate">9</span>
-        <span class="paginate">10</span>
-        <span className="next">
-          Next <span className="arrow">&rarr;</span>
-        </span>
+      <div className="container paginate-div">
+        {/* Conditionally render the "Previous" button */}
+        {currentPage > 1 && (
+          <span onClick={() => handlePageChange(currentPage - 1)}>
+            Previous
+          </span>
+        )}
+
+        {/* Display page numbers dynamically */}
+        {Array.from({ length: totalPages }, (_, index) => (
+          <span
+            key={index}
+            className={`paginate ${
+              currentPage === index + 1 ? "active-page" : ""
+            }`}
+            onClick={() => handlePageChange(index + 1)}
+          >
+            {index + 1}
+          </span>
+        ))}
+
+        {/* Conditionally render the "Next" button */}
+        {currentPage < totalPages && (
+          <span onClick={() => handlePageChange(currentPage + 1)}>Next</span>
+        )}
       </div>
     </div>
   );

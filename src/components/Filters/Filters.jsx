@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Filter.css";
 
 const Filters = ({ data, title, onFilterChange }) => {
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
   const handleCheckboxChange = (event) => {
     const { checked, value } = event.target;
-    onFilterChange(checked ? value : null);
+
+    setSelectedFilters((prevSelected) => {
+      if (checked) {
+        const updatedSelection = [...prevSelected, value];
+        onFilterChange(updatedSelection);
+        return updatedSelection;
+      } else {
+        const updatedSelection = prevSelected.filter((item) => item !== value);
+        onFilterChange(updatedSelection);
+        return updatedSelection;
+      }
+    });
   };
 
   return (
-    <div className="">
-      <div className="">
+    <div>
+      <div>
         <p className="pdt-class">{title}</p>
       </div>
       <div className="check-column">

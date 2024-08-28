@@ -6,6 +6,7 @@ const StoreContextProvider = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [currentState, setCurrentState] = useState("Login");
   const [token, setToken] = useState("");
+  const [filters, setFilters] = useState({});
 
   const contextValue = {
     showLogin,
@@ -14,6 +15,8 @@ const StoreContextProvider = (props) => {
     setCurrentState,
     token,
     setToken,
+    filters,
+    setFilters,
   };
 
   return (

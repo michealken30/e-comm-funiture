@@ -11,11 +11,16 @@ import { IoMenuOutline } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import toast from "react-hot-toast";
+import { useSearchFurniture } from "../../Api/furnituresApi";
+import { debounce } from "lodash";
 
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const { token, setToken } = useContext(StoreContext);
   const menuRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { filters, setFilters } = useContext(StoreContext);
+  const { products, isLoading, refetch } = useSearchFurniture(filters);
 
   const navigate = useNavigate();
 
@@ -53,6 +58,35 @@ const Navbar = ({ showLogin, setShowLogin }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleSearch = () => {
+    if (searchQuery.trim()) {
+      setFilters({ ...filters, searchQuery: [searchQuery.trim()] }); // Update filters with search query
+      navigate(`/search`);
+      refetch(); // Refetch products based on the new query
+      setSearchQuery(""); // Clear search input after search
+    }
+  };
+
+  // Handle Enter key press for searching
+  const handleSearchSubmit = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSearch();
+    }
+  };
+
+  // Handle icon click for searching
+  const handleSearchIconClick = () => {
+    handleSearch();
+  };
+
+  // Clear search input after products are done loading
+  useEffect(() => {
+    if (!isLoading && products.length > 0) {
+      setSearchQuery(""); // Clear search input
+    }
+  }, [isLoading, products]);
+
   return (
     <nav className="nav-bar" ref={menuRef}>
       <div className="">
@@ -73,8 +107,21 @@ const Navbar = ({ showLogin, setShowLogin }) => {
                   type="text"
                   placeholder="search"
                   className="input-class"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setFilters({
+                      ...filters,
+                      searchQuery: [e.target.value.trim()],
+                    }); // Real-time filtering
+                    refetch(); // Trigger refetch for live search results
+                  }}
+                  onKeyDown={handleSearchSubmit}
                 />
-                <IoMdSearch className="search-icon" />
+                <IoMdSearch
+                  className="search-icon"
+                  onClick={handleSearchIconClick}
+                />
               </div>
               {/* order button */}
               <div className="help-flex">

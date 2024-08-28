@@ -4,8 +4,8 @@ export const Category = [
   "Sofas cum Bed",
   "Sofas",
 ];
-export const Materials1 = ["Fabric", "Leather"];
-export const Materials2 = ["Solid wood", "Engerineering Wood "];
+export const Materials1 = ["Fabrics", "Leather"];
+export const Materials2 = ["Solid wood", "Engerineering Wood"];
 export const Colors = [
   "Black",
   "Brown",

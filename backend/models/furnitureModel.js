@@ -14,11 +14,11 @@ const furnitureSchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: Array,
+    type: String,
     required: true,
   },
   seat: {
-    type: Array,
+    type: String,
     required: true,
   },
   best: {
@@ -27,15 +27,15 @@ const furnitureSchema = new mongoose.Schema({
   },
 
   frame: {
-    type: Array,
+    type: String,
     required: true,
   },
   colors: {
-    type: Array,
+    type: String,
     required: true,
   },
   priceCat: {
-    type: Array,
+    type: String,
     required: true,
   },
   oldPrice: {
