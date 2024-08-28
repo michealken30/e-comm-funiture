@@ -95,6 +95,7 @@ nav {
   top: 3px;
   right: 3px;
   font-size: 25px;
+  cursor: pointer;
 }
 
 .third-flex {
