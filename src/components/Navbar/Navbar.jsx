@@ -12,7 +12,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import toast from "react-hot-toast";
 import { useSearchFurniture } from "../../Api/furnituresApi";
-import { debounce } from "lodash";
 
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -60,14 +59,13 @@ const Navbar = ({ showLogin, setShowLogin }) => {
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      setFilters({ ...filters, searchQuery: [searchQuery.trim()] }); // Update filters with search query
+      setFilters({ ...filters, searchQuery: [searchQuery.trim()] });
       navigate(`/search`);
-      refetch(); // Refetch products based on the new query
-      setSearchQuery(""); // Clear search input after search
+      refetch();
+      setSearchQuery("");
     }
   };
 
-  // Handle Enter key press for searching
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -75,15 +73,13 @@ const Navbar = ({ showLogin, setShowLogin }) => {
     }
   };
 
-  // Handle icon click for searching
   const handleSearchIconClick = () => {
     handleSearch();
   };
 
-  // Clear search input after products are done loading
   useEffect(() => {
     if (!isLoading && products.length > 0) {
-      setSearchQuery(""); // Clear search input
+      setSearchQuery("");
     }
   }, [isLoading, products]);
 
@@ -113,8 +109,8 @@ const Navbar = ({ showLogin, setShowLogin }) => {
                     setFilters({
                       ...filters,
                       searchQuery: [e.target.value.trim()],
-                    }); // Real-time filtering
-                    refetch(); // Trigger refetch for live search results
+                    });
+                    refetch();
                   }}
                   onKeyDown={handleSearchSubmit}
                 />
@@ -123,17 +119,15 @@ const Navbar = ({ showLogin, setShowLogin }) => {
                   onClick={handleSearchIconClick}
                 />
               </div>
-              {/* order button */}
+
               <div className="help-flex">
                 <FaRegQuestionCircle size={20} />
                 <span className="help-span">
                   Help <IoIosArrowDown className="arrow" />
                 </span>
               </div>
-              {/* darkmode Switch */}
             </div>
             <div className={mobileMenu ? "color2 third-flex" : "third-flex"}>
-              {/* <CiHeart className="media-none" /> */}
               <Link to="/cart">
                 <FaCartShopping className="cart-shop" />
               </Link>

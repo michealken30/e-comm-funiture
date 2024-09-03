@@ -11,7 +11,6 @@ import {
 
 const ProductSideBar = ({ setFilters }) => {
   const handleFilterChange = (key, value) => {
-    console.log(value);
     setFilters((prevFilters) => ({
       ...prevFilters,
       [key]: value,

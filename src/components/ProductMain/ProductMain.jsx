@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./ProductMain.css";
 import { CiHeart } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { useSearchFurniture } from "../../Api/furnituresApi";
+import { StoreContext } from "../../Context/StoreContext";
 
 const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
@@ -10,15 +11,12 @@ const ProductMain = ({ filters, setFilters }) => {
   const { products, isLoading, refetch } = useSearchFurniture(filters);
   const [sortOption, setSortOption] = useState("dateDesc");
   const navigate = useNavigate();
+  const { token, setToken } = useContext(StoreContext);
 
   const fetchAllProducts = () => {
     navigate("/search");
     window.location.reload();
   };
-
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [products]);
 
   const handleSortChange = (newSortOption) => {
     if (newSortOption === "all") {
@@ -48,6 +46,10 @@ const ProductMain = ({ filters, setFilters }) => {
   };
 
   useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
     refetch();
   }, [filters]);
 

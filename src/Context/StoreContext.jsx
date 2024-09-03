@@ -7,6 +7,7 @@ const StoreContextProvider = (props) => {
   const [currentState, setCurrentState] = useState("Login");
   const [token, setToken] = useState("");
   const [filters, setFilters] = useState({});
+  const [cartItems, setCartItems] = useState({});
 
   const contextValue = {
     showLogin,
@@ -17,6 +18,8 @@ const StoreContextProvider = (props) => {
     setToken,
     filters,
     setFilters,
+    cartItems,
+    setCartItems,
   };
 
   return (
