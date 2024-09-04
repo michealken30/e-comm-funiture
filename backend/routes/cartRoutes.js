@@ -3,12 +3,13 @@ import {
   addCart,
   listCartItem,
   removeFromCart,
-} from "../contollers/cartDataController";
+} from "../contollers/cartDataController.js";
+import UserAuth from "../middleware/UserAuth.js";
 
-cartRouter = express.Router();
+const cartRouter = express.Router();
 
-cartRouter.post("/add", addCart);
-cartRouter.post("/remove", removeFromCart);
-cartRouter.post("/list", listCartItem);
+cartRouter.post("/add", UserAuth, addCart);
+cartRouter.post("/remove", UserAuth, removeFromCart);
+cartRouter.post("/list", UserAuth, listCartItem);
 
 export default cartRouter;

@@ -1,9 +1,12 @@
-import User from "../models/userModels";
+import User from "../models/userModels.js";
 
 const addCart = async (req, res) => {
+  console.log(req.body.userId);
   try {
     let userData = await User.findOne({ _id: req.body.userId });
+    console.log(userData);
     let cartData = await userData.cartData;
+
     if (!cartData[req.body.itemId]) {
       cartData[req.body.itemId] = 1;
     } else {

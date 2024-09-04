@@ -8,8 +8,22 @@ import { IoShareSocialOutline } from "react-icons/io5";
 import { IoIosStarOutline } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useAddToCart } from "../../Api/CartApi";
+import toast from "react-hot-toast";
 
 const RightDetailCard = ({ item }) => {
+  const { addCart, isLoading } = useAddToCart();
+
+  const handleAddToCart = async (itemId) => {
+    console.log(itemId);
+    try {
+      await addCart(itemId);
+      toast.success("Item added to cart!");
+    } catch (err) {
+      toast.error("Failed to add item to cart!");
+    }
+  };
+
   return (
     <div className="right-section">
       <div className="right-card">
@@ -81,8 +95,12 @@ const RightDetailCard = ({ item }) => {
           </span>
           <span>2 year warranty</span>
         </div>
-        <Link to="/cart">
-          <button className="add-to-cart">
+        <Link to="#">
+          <button
+            className="add-to-cart"
+            onClick={() => handleAddToCart(item._id)}
+            disabled={isLoading}
+          >
             <span>
               <FaCartShopping className="" />
             </span>

@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { useGetFurniture } from "../../src/Api/furnituresApi.js";
 
 export const StoreContext = createContext(null);
 
@@ -8,6 +9,19 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [filters, setFilters] = useState({});
   const [cartItems, setCartItems] = useState({});
+  const { products, refetch } = useGetFurniture();
+
+  const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        let itemInfo = products.find((product) => product._id === item);
+
+        totalAmount += itemInfo.price * cartItems[item];
+      }
+    }
+    return totalAmount;
+  };
 
   const contextValue = {
     showLogin,
@@ -20,6 +34,7 @@ const StoreContextProvider = (props) => {
     setFilters,
     cartItems,
     setCartItems,
+    getTotalCartAmount,
   };
 
   return (

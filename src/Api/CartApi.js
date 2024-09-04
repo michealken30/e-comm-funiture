@@ -7,8 +7,10 @@ const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
 export const useAddToCart = () => {
   const { token, setCartItems, cartItems } = useContext(StoreContext);
+  console.log(token);
 
   const addTocart = async (itemId) => {
+    console.log(itemId);
     try {
       if (!cartItems[itemId]) {
         setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
@@ -91,7 +93,7 @@ export const useLoadCartData = () => {
     try {
       if (token) {
         const response = await axios.post(
-          `${API_BASE_URI}/api/cart/remove`,
+          `${API_BASE_URI}/api/cart/list`,
           {},
 
           { headers: { token } }
@@ -100,7 +102,7 @@ export const useLoadCartData = () => {
       }
     } catch (error) {
       throw new Error(
-        error.response?.data?.message || "Item not remove from cart"
+        error.response?.data?.message || "Cart data cant be fetched"
       );
     }
   };
