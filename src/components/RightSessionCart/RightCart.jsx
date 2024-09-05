@@ -1,21 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Rightcart.css";
 import { RiVisaLine } from "react-icons/ri";
-import { FaCcMastercard } from "react-icons/fa";
-import { FaPaypal } from "react-icons/fa";
-import { FaStripe } from "react-icons/fa6";
+import { FaCcMastercard, FaPaypal, FaStripe } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 
 const RightCart = () => {
   const { getTotalCartAmount, cartItems } = useContext(StoreContext);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   const totalItems =
     Object.keys(cartItems).length > 0
       ? Object.values(cartItems).reduce((total, qty) => total + qty, 0)
       : 0;
-  const totalAmount = getTotalCartAmount();
-  console.log(totalAmount);
+
+  useEffect(() => {
+    const fetchTotalAmount = async () => {
+      const amount = await getTotalCartAmount();
+      setTotalAmount(amount || 0);
+    };
+
+    fetchTotalAmount();
+  }, [getTotalCartAmount, cartItems]);
 
   return (
     <div>

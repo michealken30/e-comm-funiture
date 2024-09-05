@@ -15,7 +15,7 @@ import { useSearchFurniture } from "../../Api/furnituresApi";
 
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
-  const { token, setToken } = useContext(StoreContext);
+  const { token, setToken, cartItems } = useContext(StoreContext);
   const menuRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
   const { filters, setFilters } = useContext(StoreContext);
@@ -77,6 +77,11 @@ const Navbar = ({ showLogin, setShowLogin }) => {
     handleSearch();
   };
 
+  const totalItems =
+    Object.keys(cartItems).length > 0
+      ? Object.values(cartItems).reduce((total, qty) => total + qty, 0)
+      : 0;
+
   useEffect(() => {
     if (!isLoading && products.length > 0) {
       setSearchQuery("");
@@ -128,10 +133,13 @@ const Navbar = ({ showLogin, setShowLogin }) => {
               </div>
             </div>
             <div className={mobileMenu ? "color2 third-flex" : "third-flex"}>
-              <Link to="/cart">
-                <FaCartShopping className="cart-shop" />
+              <Link to="/cart" className="cart-icon">
+                <FaCartShopping className="cart-shop " />
+                {totalItems > 0 && (
+                  <span className="cart-count">{totalItems}</span>
+                )}
               </Link>
-              {token ? <CiUser /> : <></>}
+              {token ? <CiUser className="cart-icon" /> : <></>}
               {!token ? (
                 <div>
                   <button className="btn-signin" onClick={handleSignInClick}>
