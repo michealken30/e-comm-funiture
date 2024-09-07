@@ -13,6 +13,7 @@ import AOS from "aos";
 import { StoreContext } from "./Context/StoreContext";
 import UserPage from "./pages/UserPage";
 import ResetPassword from "./components/ForgotPassword/ResetPassword";
+import DeliveryInfo from "./components/DeliveryInfo/DeliveryInfo";
 
 const App = () => {
   React.useEffect(() => {
@@ -27,7 +28,8 @@ const App = () => {
 
   // const [showLogin, setShowLogin] = useState(false);
 
-  const { showLogin, setShowLogin } = useContext(StoreContext);
+  const { showLogin, setShowLogin, deliveryAddress, setDeliveryAddress } =
+    useContext(StoreContext);
   const location = useLocation();
 
   return (
@@ -38,6 +40,11 @@ const App = () => {
 
       {!location.pathname.startsWith("/reset-password") && (
         <Navbar showLogin={showLogin} setShowLogin={setShowLogin} />
+      )}
+      {deliveryAddress ? (
+        <DeliveryInfo setdeliveryAddress={setDeliveryAddress} />
+      ) : (
+        <></>
       )}
       <Routes>
         <Route path="/" element={<HomePage />} />

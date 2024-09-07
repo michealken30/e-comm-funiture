@@ -6,11 +6,26 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [currentState, setCurrentState] = useState("Login");
-
+  const [deliveryAddress, setDeliveryAddress] = useState(false);
   const [filters, setFilters] = useState({});
   const [cartItems, setCartItems] = useState({});
   const { products, refetch } = useGetFurniture();
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    street: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    country: "",
+    phone: "",
+  });
+
+  const clearCartItems = () => {
+    setCartItems({});
+  };
 
   const saveToken = (userToken) => {
     if (token !== userToken) {
@@ -40,6 +55,8 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
+  console.log(data);
+
   const contextValue = {
     showLogin,
     setShowLogin,
@@ -53,6 +70,11 @@ const StoreContextProvider = (props) => {
     setCartItems,
     getTotalCartAmount,
     saveToken,
+    clearCartItems,
+    data,
+    setData,
+    deliveryAddress,
+    setDeliveryAddress,
   };
 
   return (

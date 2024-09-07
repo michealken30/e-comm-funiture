@@ -12,20 +12,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 import toast from "react-hot-toast";
 import { useSearchFurniture } from "../../Api/furnituresApi";
+import { useLoadCartData } from "../../Api/CartApi";
 
 const Navbar = ({ showLogin, setShowLogin }) => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const { token, setToken, cartItems } = useContext(StoreContext);
   const menuRef = useRef(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const { filters, setFilters } = useContext(StoreContext);
+  const { filters, setFilters, clearCartItems } = useContext(StoreContext);
   const { products, isLoading, refetch } = useSearchFurniture(filters);
+  const { mycartData } = useLoadCartData();
 
   const navigate = useNavigate();
 
   const Logout = () => {
     localStorage.removeItem("token");
     setToken("");
+    clearCartItems();
     navigate("/");
     toast.success("Logout Successfully");
   };
@@ -86,7 +89,21 @@ const Navbar = ({ showLogin, setShowLogin }) => {
     if (!isLoading && products.length > 0) {
       setSearchQuery("");
     }
-  }, [isLoading, products]);
+
+    const loadCartData = async () => {
+      const storedToken = localStorage.getItem("token");
+
+      if (storedToken) {
+        if (!token) {
+          setToken(storedToken);
+        }
+
+        await mycartData();
+      }
+    };
+
+    loadCartData();
+  }, [isLoading, products, mycartData, token, setToken]);
 
   return (
     <nav className="nav-bar" ref={menuRef}>

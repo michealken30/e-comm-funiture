@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./RightDetailCard.css";
 import { CiLineHeight } from "react-icons/ci";
 import { TbSquareLetterWFilled } from "react-icons/tb";
@@ -10,12 +10,20 @@ import { FaCartShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useAddToCart } from "../../Api/CartApi";
 import toast from "react-hot-toast";
+import { StoreContext } from "../../Context/StoreContext";
 
 const RightDetailCard = ({ item }) => {
   const { addCart, isLoading } = useAddToCart();
 
+  const { token, setShowLogin } = useContext(StoreContext);
+
   const handleAddToCart = async (itemId) => {
-    console.log(itemId);
+    if (!token) {
+      setShowLogin(true);
+      toast.error("Please login to add items to the cart");
+      return;
+    }
+
     try {
       await addCart(itemId);
       toast.success("Item added to cart!");

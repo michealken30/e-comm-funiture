@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./LeftCheckout.css";
 import { RiVisaLine } from "react-icons/ri";
 import { FaCcMastercard } from "react-icons/fa";
 import { FaPaypal } from "react-icons/fa";
 import { FaStripe } from "react-icons/fa6";
+import { StoreContext } from "../../Context/StoreContext";
 
 const LeftCheckout = () => {
+  const { data, setData, setDeliveryAddress } = useContext(StoreContext);
+  console.log(data);
   return (
     <div>
       <div className="card-div2 ">
@@ -13,11 +16,13 @@ const LeftCheckout = () => {
           <input type="checkbox" checked className="round-check" />
         </div>
         <div>
-          <span className="font-size">CHOOSE A DELIVERY OPTION</span>
-          <span className="font-size1">Ikeja Keystone block</span>
+          <span className="font-size">CHOOSE A DELIVERY ADDRESS</span>
+          <span className="font-size1">
+            {data.street || "Ikeja Keystone block"}
+          </span>
           <span className="font-size2">
-            1234 Maplewood Crescent, Apartment 56B, Greenfield Heights,
-            Springfield, Illinois, 62704, United States of America.
+            {data.city || "Benin-City"} , {data.state || "Lagos"} ,
+            {data.country || "Nigeria"}
           </span>
 
           <div className="div-check">
@@ -26,7 +31,7 @@ const LeftCheckout = () => {
           </div>
         </div>
         <div className="font-size3">
-          <span>Change</span>
+          <span onClick={() => setDeliveryAddress(true)}>Change</span>
 
           <span class="health-style remove-arr"> &gt;</span>
         </div>
