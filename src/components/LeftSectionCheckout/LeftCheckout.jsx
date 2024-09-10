@@ -5,10 +5,27 @@ import { FaCcMastercard } from "react-icons/fa";
 import { FaPaypal } from "react-icons/fa";
 import { FaStripe } from "react-icons/fa6";
 import { StoreContext } from "../../Context/StoreContext";
+import { usePlaceOrder } from "../../Api/orders";
 
 const LeftCheckout = () => {
   const { data, setData, setDeliveryAddress } = useContext(StoreContext);
-  console.log(data);
+  const { placeOrder, isLoading } = usePlaceOrder();
+
+  const handlePlaceOrder = () => {
+    const orderDetails = {
+      items: data.cartItems,
+      address: {
+        street: data.street || "Ikeja Keystone block",
+        city: data.city || "Benin-City",
+        state: data.state || "Lagos",
+        country: data.country || "Nigeria",
+      },
+      amount: data.totalAmount,
+    };
+
+    placeOrder(orderDetails);
+  };
+
   return (
     <div>
       <div className="card-div2 ">
@@ -111,7 +128,13 @@ const LeftCheckout = () => {
             By clicking this button, you agree to our
             <span>terms and conditions.</span>
           </p>
-          <button className="checkout">Continue to payment</button>
+          <button
+            className="checkout"
+            onClick={handlePlaceOrder}
+            disabled={isLoading}
+          >
+            Continue to payment
+          </button>
         </div>
       </div>
     </div>

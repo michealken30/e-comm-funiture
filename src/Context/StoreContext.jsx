@@ -55,8 +55,6 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
-  console.log(data);
-
   const contextValue = {
     showLogin,
     setShowLogin,
