@@ -12,10 +12,11 @@ export const usePlaceOrder = () => {
     try {
       if (token) {
         const response = await axios.post(
-          `${API_BASE_URI}/api/order/place`,
-          { orders },
+          `${API_BASE_URI}/api/orders/place`,
+          orders,
           { headers: { token } }
         );
+
         return response.data;
       }
     } catch (error) {
@@ -28,7 +29,17 @@ export const usePlaceOrder = () => {
     isLoading,
     error,
     isSuccess,
-  } = useMutation(placeToOrder);
+  } = useMutation(placeToOrder, {
+    onSuccess: (data) => {
+      if (data.success) {
+        const { session_url } = data;
+        window.location.replace(session_url);
+      }
+    },
+    onError: (error) => {
+      alert(error.message || "Error placing order");
+    },
+  });
 
   return {
     placeOrder,
@@ -41,7 +52,7 @@ export const usePlaceOrder = () => {
 export const useVerifyOrder = () => {
   const verifyToOrder = async (success, orderId) => {
     try {
-      const response = await axios.post(url + "/api/order/verify", {
+      const response = await axios.post(`${API_BASE_URI}/api/orders/verify`, {
         success,
         orderId,
       });

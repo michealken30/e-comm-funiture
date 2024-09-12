@@ -20,7 +20,7 @@ app.use("/api/my/user", UserRoute);
 app.use("/api/furniture", furnitureRouter);
 app.use("/images", express.static("uploads"));
 app.use("/api/cart", cartRouter);
-app.use("api/orders", orderRouter);
+app.use("/api/orders", orderRouter);
 
 app.get("/", (req, res) => {
   res.send("You are welcome");

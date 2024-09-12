@@ -1,16 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./RightCheckout.css";
 import { useGetFurniture } from "../../Api/furnituresApi";
 import { StoreContext } from "../../Context/StoreContext";
 import { Link } from "react-router-dom";
+import { usePlaceOrder } from "../../Api/Orders";
 
 const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
 const RightCheckout = () => {
   const { products, refetch } = useGetFurniture();
+  const { placeOrder, isLoading } = usePlaceOrder();
 
-  const { data, setData, setDeliveryAddress, cartItems } =
-    useContext(StoreContext);
+  const { data, cartItems, setTotal, total } = useContext(StoreContext);
 
   const calculateSubtotal = () => {
     return Object.entries(cartItems).reduce((acc, [id, quantity]) => {
@@ -24,21 +25,44 @@ const RightCheckout = () => {
 
   const subtotal = calculateSubtotal();
   const deliveryFee = 20;
-  const total = subtotal + deliveryFee;
+  const genaralTotal = subtotal + deliveryFee;
 
-  const handlePlaceOrder = () => {
-    const orderDetails = {
-      items: cartItems,
-      amount: total,
+  useEffect(() => {
+    setTotal(genaralTotal);
+  }, [subtotal, deliveryFee, setTotal]);
+
+  const handlePlaceOrder = (event) => {
+    event.preventDefault();
+
+    let orderItems = [];
+
+    Object.entries(cartItems).map(([id, quantity]) => {
+      const product = products.find((product) => product._id === id);
+
+      if (product && quantity > 0) {
+        let itemInfo = {
+          ...product,
+          quantity,
+        };
+        orderItems.push(itemInfo);
+      }
+    });
+
+    let orderData = {
       address: {
         street: data.street || "Ikeja Keystone block",
         city: data.city || "Benin-City",
         state: data.state || "Lagos",
         country: data.country || "Nigeria",
       },
+      items: orderItems,
+      amount: total,
     };
 
-    placeOrder(orderDetails);
+    console.log(orderData);
+
+    // Call the placeOrder function to place the order
+    placeOrder(orderData);
   };
 
   return (
@@ -88,7 +112,6 @@ const RightCheckout = () => {
             return null;
           })}
         </div>
-
         <div className="sub-total">
           <span>Delivery Fee:</span>
           <span>${deliveryFee}</span>
@@ -101,8 +124,13 @@ const RightCheckout = () => {
           <span>Total:</span>
           <span>${total.toFixed(2)}</span>
         </div>
-
-        <button className="checkout">Continue to Payment</button>
+        <button
+          className="checkout"
+          onClick={handlePlaceOrder}
+          disabled={isLoading}
+        >
+          Continue to payment
+        </button>
       </div>
     </div>
   );

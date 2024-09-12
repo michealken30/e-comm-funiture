@@ -10,6 +10,7 @@ const StoreContextProvider = (props) => {
   const [filters, setFilters] = useState({});
   const [cartItems, setCartItems] = useState({});
   const { products, refetch } = useGetFurniture();
+  const [total, setTotal] = useState(0);
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [data, setData] = useState({
     firstName: "",
@@ -73,6 +74,8 @@ const StoreContextProvider = (props) => {
     setData,
     deliveryAddress,
     setDeliveryAddress,
+    total,
+    setTotal,
   };
 
   return (

@@ -4,8 +4,10 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const placeholder = async (req, res) => {
+const placeOrder = async (req, res) => {
   const frontend_url = "http://localhost:5173";
+
+  console.log(req.body);
 
   try {
     const newOrder = new orderModel({
@@ -16,7 +18,7 @@ const placeholder = async (req, res) => {
     });
 
     await newOrder.save();
-    await userModel.findByAndUpdate(req.body.userId, { cartData: {} });
+    await User.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
     const line_items = req.body.items.map((item) => ({
       price_data: {
@@ -24,7 +26,7 @@ const placeholder = async (req, res) => {
         product_data: {
           name: item.name,
         },
-        unit_amount: item.price * 100,
+        unit_amount: item.newPrice * 100,
       },
       quantity: item.quantity,
     }));
@@ -35,7 +37,7 @@ const placeholder = async (req, res) => {
         product_data: {
           name: "Dilevery Charges",
         },
-        unit_amount: 2 * 100,
+        unit_amount: 20 * 100,
       },
       quantity: 1,
     });
@@ -89,4 +91,4 @@ const listOrders = async (req, res) => {
   }
 };
 
-export { placeholder, userOrder, listOrders, verifyOrder };
+export { placeOrder, userOrder, listOrders, verifyOrder };
