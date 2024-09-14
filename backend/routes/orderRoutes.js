@@ -10,8 +10,8 @@ import {
 const orderRouter = express.Router();
 
 orderRouter.post("/place", UserAuth, placeOrder);
-orderRouter.post("/verify", UserAuth, verifyOrder);
-orderRouter.post("/userorders", UserAuth, userOrder);
-orderRouter.get("/adminorders", UserAuth, listOrders);
+orderRouter.post("/verify", verifyOrder);
+orderRouter.post("/myorders", UserAuth, userOrder);
+orderRouter.get("/adminorders", listOrders);
 
 export default orderRouter;

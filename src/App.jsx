@@ -14,6 +14,8 @@ import { StoreContext } from "./Context/StoreContext";
 import UserPage from "./pages/UserPage";
 import ResetPassword from "./components/ForgotPassword/ResetPassword";
 import DeliveryInfo from "./components/DeliveryInfo/DeliveryInfo";
+import MyOrders from "./pages/MyOrders/MyOrders";
+import Verify from "./pages/Verify/Verify";
 
 const App = () => {
   React.useEffect(() => {
@@ -55,6 +57,8 @@ const App = () => {
         <Route path="*" element={<HomePage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/verify" element={<Verify />} />
+        <Route path="/myorder" element={<MyOrders />} />
       </Routes>
       <Footer />
     </>

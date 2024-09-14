@@ -8,16 +8,17 @@ import { useVerifyOrder } from "../../Api/Orders";
 const Verify = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const success = searchParams.get("success");
-  console.log(success);
+
   const orderId = searchParams.get("orderId");
 
   const navigate = useNavigate();
   const { verifyOrder } = useVerifyOrder();
 
   const verifyPayment = async () => {
-    const response = verifyOrder(success, orderId);
-    if (response.data.success) {
-      navigate("/cart");
+    const response = await verifyOrder(success, orderId);
+    console.log(response);
+    if (response) {
+      navigate("/myorder");
     } else {
       navigate("/");
     }
@@ -25,7 +26,7 @@ const Verify = () => {
 
   useEffect(() => {
     verifyPayment();
-  });
+  }, []);
 
   return (
     <div className="verify">

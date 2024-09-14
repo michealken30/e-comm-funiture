@@ -51,6 +51,7 @@ export const usePlaceOrder = () => {
 
 export const useVerifyOrder = () => {
   const verifyToOrder = async (success, orderId) => {
+    console.log(success);
     try {
       const response = await axios.post(`${API_BASE_URI}/api/orders/verify`, {
         success,
@@ -72,6 +73,38 @@ export const useVerifyOrder = () => {
 
   return {
     verifyOrder,
+    isLoading,
+    error,
+    isSuccess,
+  };
+};
+
+export const useMyOrder = () => {
+  const { token } = useContext(StoreContext);
+
+  const myToOrder = async () => {
+    try {
+      const response = await axios.post(
+        `${API_BASE_URI}/api/orders/myorders`,
+        {},
+        { headers: { token } }
+      );
+
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Error fetcting order");
+    }
+  };
+
+  const {
+    mutateAsync: myOrder,
+    isLoading,
+    error,
+    isSuccess,
+  } = useMutation(myToOrder);
+
+  return {
+    myOrder,
     isLoading,
     error,
     isSuccess,
