@@ -57,7 +57,7 @@ const App = () => {
               />
             }
           />
-          <Route path="/list" element={<Order />} />
+          <Route path="/order" element={<Order />} />
         </Routes>
       </div>
     </div>

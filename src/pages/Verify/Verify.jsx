@@ -8,6 +8,7 @@ import { useVerifyOrder } from "../../Api/Orders";
 const Verify = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const success = searchParams.get("success");
+  console.log(success);
 
   const orderId = searchParams.get("orderId");
 
@@ -17,7 +18,7 @@ const Verify = () => {
   const verifyPayment = async () => {
     const response = await verifyOrder(success, orderId);
     console.log(response);
-    if (response) {
+    if (response.success) {
       navigate("/myorder");
     } else {
       navigate("/");

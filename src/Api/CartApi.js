@@ -132,7 +132,7 @@ export const useLoadCartData = () => {
     try {
       if (token) {
         const response = await axios.post(
-          `${API_BASE_URI}/api/cart/list`,
+          `${API_BASE_URI}/api/cart/listcart`,
           {},
 
           { headers: { token } }

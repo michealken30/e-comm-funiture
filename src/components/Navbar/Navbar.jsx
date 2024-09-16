@@ -103,7 +103,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
     };
 
     loadCartData();
-  }, [isLoading, products, mycartData, token, setToken]);
+  }, [mycartData, token, setToken]);
 
   return (
     <nav className="nav-bar" ref={menuRef}>

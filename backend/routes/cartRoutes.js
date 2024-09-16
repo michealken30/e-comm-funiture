@@ -11,7 +11,7 @@ const cartRouter = express.Router();
 
 cartRouter.post("/add", UserAuth, addCart);
 cartRouter.post("/remove", UserAuth, removeFromCart);
-cartRouter.post("/list", UserAuth, listCartItem);
+cartRouter.post("/listcart", UserAuth, listCartItem);
 cartRouter.post("/delete", UserAuth, removeCartItem);
 
 export default cartRouter;
