@@ -14,6 +14,6 @@ orderRouter.post("/place", UserAuth, placeOrder);
 orderRouter.post("/verify", verifyOrder);
 orderRouter.post("/myorders", UserAuth, userOrder);
 orderRouter.get("/adminorders", listOrders);
-orderRouter.get("/status", updateStatus);
+orderRouter.post("/status", updateStatus);
 
 export default orderRouter;

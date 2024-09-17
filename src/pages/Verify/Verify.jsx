@@ -16,8 +16,7 @@ const Verify = () => {
   const { verifyOrder } = useVerifyOrder();
 
   const verifyPayment = async () => {
-    const response = await verifyOrder(success, orderId);
-    console.log(response);
+    const response = await verifyOrder({ success, orderId });
     if (response.success) {
       navigate("/myorder");
     } else {

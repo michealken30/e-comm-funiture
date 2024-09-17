@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Order.css";
 import toast from "react-hot-toast";
 import { assets } from "../../assets/assets";
-import { useAllOrder } from "../../adminApi/OrderApi";
+import { useAllOrder, useChangeOrderStatus } from "../../adminApi/OrderApi";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const { usersOrders, isLoading } = useAllOrder();
+  const { ChangeStatus } = useChangeOrderStatus();
 
   const fetchAllOrders = async () => {
     const response = await usersOrders();
@@ -15,6 +16,17 @@ const Orders = () => {
       setOrders(response.data.data);
     } else {
       toast.error("Error");
+    }
+  };
+
+  const statusHandler = async (e, orderId) => {
+    const orderStatus = e.target.value;
+    console.log(orderStatus);
+    console.log(orderId);
+    const response = await ChangeStatus({ orderStatus, orderId });
+    console.log(response.success);
+    if (response.success) {
+      await fetchAllOrders();
     }
   };
 
@@ -58,7 +70,12 @@ const Orders = () => {
             </div>
             <p>Items: {order.items.length}</p>
             <p>${order.amount}</p>
-            <select name="" id="">
+            <select
+              name=""
+              id=""
+              onChange={(e) => statusHandler(e, order._id)}
+              value={order.status}
+            >
               <option value="Order Processing">Order Processing</option>
               <option value="Out for delivery">Out for delivery</option>
               <option value="Delivered">Delivered</option>
