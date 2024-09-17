@@ -16,11 +16,21 @@ const DeliveryInfo = () => {
     setDeliveryAddress(false);
   };
 
+  const closePopup = () => {
+    setDeliveryAddress(false);
+  };
+
   return (
     <div className="delivery-popup">
       <form onSubmit={updateInfo} className="place-order">
         <div className="place-order-left">
-          <p className="title">Delivery Information</p>
+          <div className="info-popup-title">
+            <p className="title">Delivery Information</p>
+            <p className="pop-off" onClick={closePopup}>
+              &times;
+            </p>
+          </div>
+
           <div className="multi-fields">
             <input
               required

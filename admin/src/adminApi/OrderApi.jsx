@@ -31,9 +31,6 @@ export const useAllOrder = () => {
 
 export const useChangeOrderStatus = () => {
   const ChangeOrderStatus = async ({ orderStatus, orderId }) => {
-    console.log(orderStatus);
-    console.log(orderId);
-
     try {
       const response = await axios.post(`${API_URL}/api/orders/status`, {
         orderId,

@@ -24,7 +24,7 @@ const RightCheckout = () => {
   };
 
   const subtotal = calculateSubtotal();
-  const deliveryFee = 20;
+  const deliveryFee = Object.keys(cartItems).length > 0 ? 20 : 0;
   const genaralTotal = subtotal + deliveryFee;
 
   useEffect(() => {
@@ -33,6 +33,11 @@ const RightCheckout = () => {
 
   const handlePlaceOrder = (event) => {
     event.preventDefault();
+
+    if (Object.keys(cartItems).length === 0) {
+      alert("Your cart is empty. Please add items to proceed.");
+      return;
+    }
 
     let orderItems = [];
 
@@ -51,17 +56,19 @@ const RightCheckout = () => {
     let orderData = {
       address: {
         street: data.street || "Ikeja Keystone block",
-        city: data.city || "Benin-City",
+        city: data.city || "Lagos-City",
         state: data.state || "Lagos",
         country: data.country || "Nigeria",
+        firstName: data.firstName || "No Entry",
+        lastName: data.lastName || "No Entry",
+        email: data.email || "No Entry",
+        phone: data.phone || "No Entry",
+        zipcode: data.zipcode || "No Entry",
       },
       items: orderItems,
       amount: total,
     };
 
-    console.log(orderData);
-
-    // Call the placeOrder function to place the order
     placeOrder(orderData);
   };
 
@@ -129,7 +136,7 @@ const RightCheckout = () => {
           onClick={handlePlaceOrder}
           disabled={isLoading}
         >
-          Continue to payment
+          {isLoading ? "Loading..." : "Continue to payment"}
         </button>
       </div>
     </div>

@@ -11,7 +11,6 @@ const Orders = () => {
 
   const fetchAllOrders = async () => {
     const response = await usersOrders();
-    console.log(response.data.data);
     if (response.data.success) {
       setOrders(response.data.data);
     } else {
@@ -21,10 +20,7 @@ const Orders = () => {
 
   const statusHandler = async (e, orderId) => {
     const orderStatus = e.target.value;
-    console.log(orderStatus);
-    console.log(orderId);
     const response = await ChangeStatus({ orderStatus, orderId });
-    console.log(response.success);
     if (response.success) {
       await fetchAllOrders();
     }
@@ -63,7 +59,7 @@ const Orders = () => {
                     " ," +
                     order.address.country +
                     ", " +
-                    order.address.zipCode}
+                    order.address.zipcode}
                 </p>
               </div>
               <p className="order-item-phone">{order.address.phone}</p>

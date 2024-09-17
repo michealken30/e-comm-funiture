@@ -129,14 +129,12 @@ const ProductMain = ({ filters, setFilters }) => {
         </div>
       </div>
       <div className="container paginate-div">
-        {/* Conditionally render the "Previous" button */}
         {currentPage > 1 && (
           <span onClick={() => handlePageChange(currentPage - 1)}>
             Previous
           </span>
         )}
 
-        {/* Display page numbers dynamically */}
         {Array.from({ length: totalPages }, (_, index) => (
           <span
             key={index}
@@ -149,7 +147,6 @@ const ProductMain = ({ filters, setFilters }) => {
           </span>
         ))}
 
-        {/* Conditionally render the "Next" button */}
         {currentPage < totalPages && (
           <span onClick={() => handlePageChange(currentPage + 1)}>Next</span>
         )}

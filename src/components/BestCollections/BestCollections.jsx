@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import data from "../../utils/collections.json";
 import "./BestCollections.css";
 import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
@@ -28,7 +27,7 @@ const BestCollections = ({ title, data, refetch, best }) => {
         <div className="flexCenter media-flex">
           {bestCollections.map((card) => (
             <Link
-              to="/details/"
+              to={`/details/${card._id}`}
               className="border2 "
               data-aos="fade-up"
               data-aos-delay={card.aosDelay}

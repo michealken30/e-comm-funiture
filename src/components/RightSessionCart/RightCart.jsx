@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import "./Rightcart.css";
 import { RiVisaLine } from "react-icons/ri";
 import { FaCcMastercard, FaPaypal, FaStripe } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../Context/StoreContext";
 
 const RightCart = () => {
   const { getTotalCartAmount, cartItems } = useContext(StoreContext);
   const [totalAmount, setTotalAmount] = useState(0);
+  const navigate = useNavigate();
 
   const totalItems =
     Object.keys(cartItems).length > 0
@@ -22,6 +23,17 @@ const RightCart = () => {
 
     fetchTotalAmount();
   }, [getTotalCartAmount, cartItems]);
+
+  const handleCheckout = (e) => {
+    if (totalItems === 0) {
+      e.preventDefault();
+      alert(
+        "Your cart is empty. Please add items before proceeding to checkout."
+      );
+    } else {
+      navigate("/checkout");
+    }
+  };
 
   return (
     <div>
@@ -47,9 +59,9 @@ const RightCart = () => {
           <span>${totalAmount.toFixed(2)}</span>
         </div>
         <p className="exclude-charges">Excluding Delivery charges</p>
-        <Link to="/checkout">
-          <button className="checkout">Continue to checkout</button>
-        </Link>
+        <button className="checkout" onClick={handleCheckout}>
+          Continue to checkout
+        </button>
         <div className="flex-payment">
           <span className="pay-text"> We accept:</span>
           <span>

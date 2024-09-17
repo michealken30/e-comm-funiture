@@ -1,7 +1,6 @@
 import jwt, { decode } from "jsonwebtoken";
 
 const UserAuth = async (req, res, next) => {
-  console.log(req.headers.token);
   const token = req.headers.token;
   if (!token) {
     return res
