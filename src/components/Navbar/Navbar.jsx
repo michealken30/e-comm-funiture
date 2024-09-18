@@ -156,7 +156,14 @@ const Navbar = ({ showLogin, setShowLogin }) => {
                   <span className="cart-count">{totalItems}</span>
                 )}
               </Link>
-              {token ? <CiUser className="cart-icon" /> : <></>}
+              {token && (
+                <div className="user-section">
+                  <CiUser className="cart-icon user-icon" />
+                  <div className="dropdown-content">
+                    <Link to="/myorder">My Order</Link>
+                  </div>
+                </div>
+              )}
               {!token ? (
                 <div>
                   <button className="btn-signin" onClick={handleSignInClick}>
