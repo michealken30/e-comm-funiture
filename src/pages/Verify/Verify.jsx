@@ -8,7 +8,6 @@ import { useVerifyOrder } from "../../Api/Orders";
 const Verify = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const success = searchParams.get("success");
-  console.log(success);
 
   const orderId = searchParams.get("orderId");
 
