@@ -81,7 +81,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
   };
 
   const totalItems =
-    Object.keys(cartItems).length > 0
+    cartItems && Object.keys(cartItems).length > 0
       ? Object.values(cartItems).reduce((total, qty) => total + qty, 0)
       : 0;
 
