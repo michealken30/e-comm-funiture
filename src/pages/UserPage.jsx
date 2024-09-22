@@ -34,17 +34,10 @@ const UserPage = () => {
   const handleLoginOrSignup = async (data, action) => {
     try {
       const response = await action(data);
-
-      // Check if the response has a token
-      if (response.token) {
-        setToken(response.token); // Save the token to context
-        localStorage.setItem("token", response.token); // Save the token to localStorage
-        toast.success(response.message || "Successfully authenticated");
-      } else {
-        toast.error("No token found in response");
-      }
-
-      setShowLogin(false); // Close login popup after success
+      setToken(response.token);
+      localStorage.setItem("token", response.token);
+      setShowLogin(false);
+      toast.success(response.message);
     } catch (error) {
       toast.error(error.message || "An error occurred");
     }

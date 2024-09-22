@@ -2,19 +2,27 @@ import axios from "axios";
 import { useContext } from "react";
 import { useMutation } from "react-query";
 import { StoreContext } from "../Context/StoreContext";
+import { useEffect } from "react";
 
 const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
 export const useAddToCart = () => {
   const { token, setCartItems, cartItems } = useContext(StoreContext);
-
+  console.log(cartItems);
+  console.log(token);
   const addTocart = async (itemId) => {
+    console.log(itemId);
+
     try {
-      if (!cartItems[itemId]) {
+      if (!cartItems) {
+        // Ensure cartItems is initialized to an empty object if it's undefined
+        setCartItems({ [itemId]: 1 });
+      } else if (!cartItems[itemId]) {
         setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
       } else {
         setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
       }
+
       if (token) {
         const response = await axios.post(
           `${API_BASE_URI}/api/cart/add`,

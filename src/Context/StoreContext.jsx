@@ -11,7 +11,7 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const { products, refetch } = useGetFurniture();
   const [total, setTotal] = useState(0);
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -37,11 +37,12 @@ const StoreContextProvider = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await refetch();
+      if (token) {
+        await refetch();
+      }
     };
-
     fetchData();
-  }, [refetch]);
+  }, [token, refetch]);
 
   const getTotalCartAmount = async () => {
     let totalAmount = 0;

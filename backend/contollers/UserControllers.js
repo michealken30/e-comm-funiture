@@ -10,8 +10,6 @@ const Register = async (req, res) => {
   try {
     const userExist = await User.findOne({ email: email });
 
-    console.log(email);
-
     if (userExist) {
       return res
         .status(400)
@@ -35,7 +33,7 @@ const Register = async (req, res) => {
 
     const newUser = new User({ name, email, password: hashedPassword });
 
-    const user = newUser.save();
+    const user = await newUser.save();
 
     const token = createToken(user._id);
 
