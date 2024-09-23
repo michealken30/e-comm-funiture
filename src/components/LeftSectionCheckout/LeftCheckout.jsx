@@ -10,38 +10,37 @@ import { useGetFurniture } from "../../Api/furnituresApi";
 
 const LeftCheckout = () => {
   const { products } = useGetFurniture();
-  const { data, cartItems, total, setDeliveryAddress } =
-    useContext(StoreContext);
-  const { placeOrder, isLoading } = usePlaceOrder();
+  const { data, setDeliveryAddress } = useContext(StoreContext);
+  // const { placeOrder, isLoading } = usePlaceOrder();
 
-  const handlePlaceOrder = () => {
-    let orderItems = [];
+  // const handlePlaceOrder = () => {
+  //   let orderItems = [];
 
-    Object.entries(cartItems).map(([id, quantity]) => {
-      const product = products.find((product) => product._id === id);
+  //   Object.entries(cartItems).map(([id, quantity]) => {
+  //     const product = products.find((product) => product._id === id);
 
-      if (product && quantity > 0) {
-        let itemInfo = {
-          ...product,
-          quantity,
-        };
-        orderItems.push(itemInfo);
-      }
-    });
+  //     if (product && quantity > 0) {
+  //       let itemInfo = {
+  //         ...product,
+  //         quantity,
+  //       };
+  //       orderItems.push(itemInfo);
+  //     }
+  //   });
 
-    const orderDetails = {
-      address: {
-        street: data.street || "Ikeja Keystone block",
-        city: data.city || "Benin-City",
-        state: data.state || "Lagos",
-        country: data.country || "Nigeria",
-      },
-      items: orderItems,
-      amount: total,
-    };
+  //   const orderDetails = {
+  //     address: {
+  //       street: data.street || "Ikeja Keystone block",
+  //       city: data.city || "Benin-City",
+  //       state: data.state || "Lagos",
+  //       country: data.country || "Nigeria",
+  //     },
+  //     items: orderItems,
+  //     amount: total,
+  //   };
 
-    placeOrder(orderDetails);
-  };
+  //   placeOrder(orderDetails);
+  // };
 
   return (
     <div>
@@ -143,7 +142,7 @@ const LeftCheckout = () => {
             </button>
           </form>
 
-          <p>
+          {/* <p>
             By clicking this button, you agree to our{" "}
             <span>terms and conditions.</span>
           </p>
@@ -154,7 +153,7 @@ const LeftCheckout = () => {
             disabled={isLoading}
           >
             Continue to payment
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
