@@ -5,42 +5,11 @@ import { FaCcMastercard } from "react-icons/fa";
 import { FaPaypal } from "react-icons/fa";
 import { FaStripe } from "react-icons/fa6";
 import { StoreContext } from "../../Context/StoreContext";
-import { usePlaceOrder } from "../../Api/Orders";
 import { useGetFurniture } from "../../Api/furnituresApi";
 
 const LeftCheckout = () => {
   const { products } = useGetFurniture();
   const { data, setDeliveryAddress } = useContext(StoreContext);
-  // const { placeOrder, isLoading } = usePlaceOrder();
-
-  // const handlePlaceOrder = () => {
-  //   let orderItems = [];
-
-  //   Object.entries(cartItems).map(([id, quantity]) => {
-  //     const product = products.find((product) => product._id === id);
-
-  //     if (product && quantity > 0) {
-  //       let itemInfo = {
-  //         ...product,
-  //         quantity,
-  //       };
-  //       orderItems.push(itemInfo);
-  //     }
-  //   });
-
-  //   const orderDetails = {
-  //     address: {
-  //       street: data.street || "Ikeja Keystone block",
-  //       city: data.city || "Benin-City",
-  //       state: data.state || "Lagos",
-  //       country: data.country || "Nigeria",
-  //     },
-  //     items: orderItems,
-  //     amount: total,
-  //   };
-
-  //   placeOrder(orderDetails);
-  // };
 
   return (
     <div>
