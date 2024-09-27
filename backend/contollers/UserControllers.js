@@ -79,12 +79,10 @@ const Register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      isVerified: false, // Set to false initially
+      isVerified: false,
     });
 
     const user = await newUser.save();
-
-    // Generate a verification token
 
     const emailToken = generateToken();
     const storedEmailToken = storedToken(emailToken);
@@ -94,8 +92,7 @@ const Register = async (req, res) => {
 
     await user.save();
 
-    // Send verification email
-    const verificationLink = `https://alpha-furniture-backend.onrender.com/${emailToken}`;
+    const verificationLink = `https://alpha-furniture-backend.onrender.com/api/my/user/verify-email/${emailToken}`;
     await sendEmail(
       email,
       "Email Verification",
