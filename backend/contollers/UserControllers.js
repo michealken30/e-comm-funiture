@@ -87,7 +87,6 @@ const Register = async (req, res) => {
     // Generate a verification token
 
     const emailToken = generateToken();
-    console.log(emailToken);
     const storedEmailToken = storedToken(emailToken);
 
     user.emailVerificationToken = storedEmailToken;
@@ -96,7 +95,7 @@ const Register = async (req, res) => {
     await user.save();
 
     // Send verification email
-    const verificationLink = `http://localhost:4000/api/my/user/verify-email/${emailToken}`;
+    const verificationLink = `https://alpha-furniture-backend.onrender.com/${emailToken}`;
     await sendEmail(
       email,
       "Email Verification",
