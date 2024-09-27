@@ -135,7 +135,7 @@ const verifyEmail = async (req, res) => {
     await user.save();
 
     // Redirect to home page for login
-    res.redirect(`http://localhost:5174/?success=true`); // Adjust the URL based on your frontend route
+    res.redirect(`https://alpha-furniture-frontend.onrender.com/?success=true`); // Adjust the URL based on your frontend route
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
   }
@@ -235,7 +235,7 @@ const requestPasswordReset = async (req, res) => {
 
     await user.save();
 
-    const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
+    const resetLink = `https://alpha-furniture-frontend.onrender.com/reset-password/${resetToken}`;
     await sendEmail(
       email,
       "Password Reset",
