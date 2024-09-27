@@ -5,46 +5,143 @@ import jwt from "jsonwebtoken";
 import { generateToken, storedToken } from "../utils/generateToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
 
+// const Register = async (req, res) => {
+//   const { name, email, password } = req.body;
+//   try {
+//     const userExist = await User.findOne({ email: email });
+
+//     if (userExist) {
+//       return res
+//         .status(400)
+//         .json({ success: false, message: "User already exist" });
+//     }
+
+//     if (!validator.isEmail(email)) {
+//       return res.json({ success: false, message: "Please Enter Valid Email" });
+//     }
+
+//     if (password.length < 8) {
+//       return res.json({
+//         success: false,
+//         message: "Password length must be morethan 8",
+//       });
+//     }
+
+//     const salt = await bcrypt.genSalt(10);
+
+//     const hashedPassword = await bcrypt.hash(password, salt);
+
+//     const newUser = new User({ name, email, password: hashedPassword });
+
+//     const user = await newUser.save();
+
+//     const token = createToken(user._id);
+
+//     res
+//       .status(200)
+//       .json({ success: true, token, message: "User Created Successfully" });
+//   } catch (error) {
+//     console.log(error);
+//     res
+//       .status(401)
+//       .json({ success: false, message: "error, user not created" });
+//   }
+// };
+
 const Register = async (req, res) => {
   const { name, email, password } = req.body;
   try {
-    const userExist = await User.findOne({ email: email });
-
+    const userExist = await User.findOne({ email });
     if (userExist) {
       return res
         .status(400)
-        .json({ success: false, message: "User already exist" });
+        .json({ success: false, message: "User already exists" });
     }
 
     if (!validator.isEmail(email)) {
-      return res.json({ success: false, message: "Please Enter Valid Email" });
+      return res.json({
+        success: false,
+        message: "Please enter a valid email",
+      });
     }
 
     if (password.length < 8) {
       return res.json({
         success: false,
-        message: "Password length must be morethan 8",
+        message: "Password must be at least 8 characters",
       });
     }
 
     const salt = await bcrypt.genSalt(10);
-
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const newUser = new User({ name, email, password: hashedPassword });
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      isVerified: false, // Set to false initially
+    });
 
     const user = await newUser.save();
 
-    const token = createToken(user._id);
+    // Generate a verification token
 
-    res
-      .status(200)
-      .json({ success: true, token, message: "User Created Successfully" });
+    const emailToken = generateToken();
+    console.log(emailToken);
+    const storedEmailToken = storedToken(emailToken);
+
+    user.emailVerificationToken = storedEmailToken;
+    user.emailVerificationExpires = Date.now() + 60 * 60 * 1000;
+
+    await user.save();
+
+    // Send verification email
+    const verificationLink = `http://localhost:4000/api/my/user/verify-email/${emailToken}`;
+    await sendEmail(
+      email,
+      "Email Verification",
+      `Click this link to verify your email and login: ${verificationLink}`
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "User registered, please verify your email and login.",
+    });
   } catch (error) {
-    console.log(error);
     res
-      .status(401)
-      .json({ success: false, message: "error, user not created" });
+      .status(500)
+      .json({ success: false, message: "Server error, user not created" });
+  }
+};
+
+const verifyEmail = async (req, res) => {
+  const { token } = req.params;
+
+  const tokenString = String(token);
+  const hashedToken = storedToken(tokenString);
+
+  try {
+    const user = await User.findOne({
+      emailVerificationToken: hashedToken,
+      emailVerificationExpires: { $gt: Date.now() }, // Check if token is still valid
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired token" });
+    }
+
+    user.isVerified = true;
+    user.emailVerificationToken = undefined;
+    user.emailVerificationExpires = undefined;
+
+    await user.save();
+
+    // Redirect to home page for login
+    res.redirect(`http://localhost:5174/?success=true`); // Adjust the URL based on your frontend route
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 
@@ -60,6 +157,13 @@ const Login = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, message: "User does not exist" });
+    }
+
+    if (!user.isVerified) {
+      return res.status(400).json({
+        success: false,
+        message: "Please verify your email before logging in",
+      });
     }
 
     const comparePasssword = await bcrypt.compare(password, user.password);
@@ -185,4 +289,11 @@ const resetPassword = async (req, res) => {
   }
 };
 
-export { Register, Login, Google, requestPasswordReset, resetPassword };
+export {
+  Register,
+  Login,
+  Google,
+  requestPasswordReset,
+  resetPassword,
+  verifyEmail,
+};
