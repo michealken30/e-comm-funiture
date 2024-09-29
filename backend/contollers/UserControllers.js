@@ -5,49 +5,6 @@ import jwt from "jsonwebtoken";
 import { generateToken, storedToken } from "../utils/generateToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
 
-// const Register = async (req, res) => {
-//   const { name, email, password } = req.body;
-//   try {
-//     const userExist = await User.findOne({ email: email });
-
-//     if (userExist) {
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "User already exist" });
-//     }
-
-//     if (!validator.isEmail(email)) {
-//       return res.json({ success: false, message: "Please Enter Valid Email" });
-//     }
-
-//     if (password.length < 8) {
-//       return res.json({
-//         success: false,
-//         message: "Password length must be morethan 8",
-//       });
-//     }
-
-//     const salt = await bcrypt.genSalt(10);
-
-//     const hashedPassword = await bcrypt.hash(password, salt);
-
-//     const newUser = new User({ name, email, password: hashedPassword });
-
-//     const user = await newUser.save();
-
-//     const token = createToken(user._id);
-
-//     res
-//       .status(200)
-//       .json({ success: true, token, message: "User Created Successfully" });
-//   } catch (error) {
-//     console.log(error);
-//     res
-//       .status(401)
-//       .json({ success: false, message: "error, user not created" });
-//   }
-// };
-
 const Register = async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -119,7 +76,7 @@ const verifyEmail = async (req, res) => {
   try {
     const user = await User.findOne({
       emailVerificationToken: hashedToken,
-      emailVerificationExpires: { $gt: Date.now() }, // Check if token is still valid
+      emailVerificationExpires: { $gt: Date.now() },
     });
 
     if (!user) {
@@ -134,8 +91,7 @@ const verifyEmail = async (req, res) => {
 
     await user.save();
 
-    // Redirect to home page for login
-    res.redirect(`https://alpha-furniture-frontend.onrender.com/?success=true`); // Adjust the URL based on your frontend route
+    res.redirect(`https://alpha-furniture-frontend.onrender.com/?success=true`);
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
   }

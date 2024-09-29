@@ -26,7 +26,8 @@ const BestCollections = ({ title, data, refetch, best, isLoading }) => {
 
         {isLoading ? (
           <div className="flexCenter">
-            <p>Loading...</p>
+            <div className="spin"></div>
+            <p>Loading Furnitures...</p>
           </div>
         ) : (
           <div className="flexCenter media-flex">

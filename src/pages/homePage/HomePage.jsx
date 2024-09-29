@@ -7,6 +7,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
 import { StoreContext } from "../../Context/StoreContext.jsx";
 import toast from "react-hot-toast";
+import EmailSubscription from "../../components/EmailSubscription/EmailSubscription.jsx";
+import Testimonials from "../../components/Testimonials/Testimonials.jsx";
 
 const HomePage = () => {
   const { products, refetch, isLoading } = useGetFurniture();
@@ -39,6 +41,8 @@ const HomePage = () => {
         best="Best Seller"
         isLoading={isLoading}
       />
+      <EmailSubscription />
+      <Testimonials />
     </div>
   );
 };

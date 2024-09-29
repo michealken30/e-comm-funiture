@@ -8,7 +8,7 @@ const Room = () => {
   return (
     <div className="app">
       <div className="title">
-        <h2>Shop by Room</h2>
+        <h2>Shop By Room</h2>
         <p data-aos="fade-up">
           Craft a space that beckons your return. Explore our meticulously
           curated collections, tailored with your preferences in mind.

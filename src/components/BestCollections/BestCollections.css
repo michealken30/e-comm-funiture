@@ -118,6 +118,22 @@
   box-shadow: 0px 72px 49px -51px rgba(136, 160, 255, 0.46);
 }
 
+.spin {
+  width: 50px;
+  height: 50px;
+  place-self: center;
+  border: 5px solid #bdbdbd;
+  border-top-color: tomato;
+  border-radius: 50%;
+  animation: rotate 1s infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @media (max-width: 600px) {
   .view-all {
     display: flex;
@@ -158,5 +174,18 @@
   .r-card2 > :nth-child(2) {
     font-size: 12px;
     font-weight: 600;
+  }
+}
+
+@media (max-width: 600px) {
+  .r-card2 {
+    border: none;
+
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    background-color: #f8f8f8;
   }
 }

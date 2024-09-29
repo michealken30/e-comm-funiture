@@ -51,7 +51,6 @@ export const usePlaceOrder = () => {
 
 export const useVerifyOrder = () => {
   const verifyToOrder = async ({ success, orderId }) => {
-    console.log(success);
     try {
       const response = await axios.post(`${API_BASE_URI}/api/orders/verify`, {
         success,

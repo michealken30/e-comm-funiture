@@ -3,16 +3,22 @@
   color: black;
   font-size: 18px;
 
-  margin: 70px 0 30px;
+  margin: 40px 0 30px;
 }
 
 .title h2 {
-  font-size: 32px;
+  font-size: 40px;
   color: #000f38;
-  margin-top: 5px;
+
   text-transform: none;
 }
 
+.title p {
+  font-size: 25px;
+  font-weight: 500;
+
+  text-transform: none;
+}
 .programs {
   display: flex;
   align-items: center;
@@ -41,7 +47,7 @@
   left: 0;
   bottom: 0;
   right: 0;
-  /* background: rgba(0, 15, 152, 0.3); */
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,5 +65,9 @@
   .program {
     flex-basis: 100%;
     margin: 20px;
+  }
+
+  .title p {
+    font-size: 16px;
   }
 }

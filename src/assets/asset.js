@@ -66,3 +66,38 @@ export const Slider1 = [
     image: "/hero2.png",
   },
 ];
+
+export const testimonialsData = [
+  {
+    id: 1,
+    name: "John Doe",
+    testimonial:
+      "The quality of products here is outstanding! I highly recommend it.",
+    image: "./test.jpg",
+  },
+  {
+    id: 2,
+    name: "Jane Smith",
+    testimonial:
+      "A wonderful shopping experience, fast delivery, and excellent support.",
+    image: "./test.jpg",
+  },
+  {
+    id: 3,
+    name: "Michael Brown",
+    testimonial: "Great service, I love the variety of products!",
+    image: "./test.jpg",
+  },
+  {
+    id: 4,
+    name: "Sara Wilson",
+    testimonial: "Highly satisfied with my purchase, will shop here again.",
+    image: "./test.jpg",
+  },
+  {
+    id: 5,
+    name: "David Clark",
+    testimonial: "Amazing quality! The best store I’ve shopped from recently.",
+    image: "./test.jpg",
+  },
+];

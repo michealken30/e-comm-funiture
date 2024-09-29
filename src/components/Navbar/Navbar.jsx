@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Navbar.css";
 import { IoMdSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
-import { CiHeart } from "react-icons/ci";
 import { CiUser } from "react-icons/ci";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
@@ -123,7 +122,7 @@ const Navbar = ({ showLogin, setShowLogin }) => {
               <div className="search-flex">
                 <input
                   type="text"
-                  placeholder="search"
+                  placeholder="Search Products"
                   className="input-class"
                   value={searchQuery}
                   onChange={(e) => {
@@ -188,7 +187,6 @@ const Navbar = ({ showLogin, setShowLogin }) => {
           <li>About us</li>
           <li>Furniture</li>
           <li>Contact us</li>
-          <li>Sign in</li>
         </ul>
       </div>
     </nav>
