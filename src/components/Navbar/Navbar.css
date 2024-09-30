@@ -14,6 +14,19 @@ nav {
   background-color: white;
 }
 
+/* Remove focus outline/blue flash from navbar interactive elements */
+.nav-flex a,
+.nav-flex button,
+.nav-flex input,
+.nav-flex .search-icon,
+.nav-flex .cart-icon,
+.nav-flex .user-icon,
+.nav-flex .navbar-icon {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
+}
+
 .first-flex {
   flex: 1;
 }
@@ -169,7 +182,7 @@ nav {
     bottom: 0;
     background: #0e0e13;
     z-index: -1;
-    width: 200px;
+    width: 250px;
     padding-top: 70px;
     transition: 0.5s;
   }
@@ -194,6 +207,7 @@ nav {
   position: relative;
   font-size: 24px;
   color: #000;
+  color: rgb(160, 157, 157);
 }
 
 .cart-count {

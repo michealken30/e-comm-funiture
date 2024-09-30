@@ -112,7 +112,7 @@ const LeftCart = ({
                         </a>
                       </button>
                     </div>
-                    <div className="price">
+                    <div className="">
                       <span className="new-price">${cartProduct.newPrice}</span>
                     </div>
                   </div>

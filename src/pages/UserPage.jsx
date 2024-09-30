@@ -39,7 +39,9 @@ const UserPage = () => {
         localStorage.setItem("token", response.token);
       }
       setShowLogin(false);
-      toast.success(response.message);
+      toast.success(response.message, {
+        duration: 5000,
+      });
     } catch (error) {
       toast.error(error.message || "An error occurred");
     }

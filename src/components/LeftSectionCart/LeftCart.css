@@ -71,7 +71,7 @@
   font-size: 16px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 780px) {
   .card-div {
     width: 100%;
   }
@@ -89,8 +89,38 @@
     align-items: center;
     margin-left: 20px;
   }
+}
+
+@media (max-width: 400px) {
+  .card-div {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    width: 100%;
+    padding: 10px 15px;
+    gap: 10px;
+  }
+
+  .img-div img {
+    width: 60px;
+  }
+
+  .text-div {
+    gap: 5px;
+  }
+
+  .add-button {
+    padding: 5px 10px;
+    margin-left: 0;
+    justify-content: center;
+  }
 
   .new-price {
-    margin-left: 20px;
+    margin-left: 0;
+    justify-content: flex-end;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .img-flex {
+    font-size: 12px;
   }
 }
