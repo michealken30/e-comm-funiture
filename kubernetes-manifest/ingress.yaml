@@ -1,19 +1,21 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mainlb
-  namespace: ecomm
   annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+  labels:
+    app.kubernetes.io/instance: ecomm
+  name: mainlb
+  namespace: ecomm
 spec:
   ingressClassName: alb
   rules:
     - host: www.michealken30.com.ng
       http:
         paths:
-          - path: /
+          - path: /api
             pathType: Prefix
             backend:
               service:
