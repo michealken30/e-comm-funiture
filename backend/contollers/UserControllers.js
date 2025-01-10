@@ -49,7 +49,7 @@ const Register = async (req, res) => {
 
     await user.save();
 
-    const verificationLink = `https://alpha-furniture-backend.onrender.com/api/my/user/verify-email/${emailToken}`;
+    const verificationLink = `http://www.michealken30.com.ng/api/my/user/verify-email/${emailToken}`;
     await sendEmail(
       email,
       "Email Verification",
@@ -91,7 +91,7 @@ const verifyEmail = async (req, res) => {
 
     await user.save();
 
-    res.redirect(`https://alpha-furniture-frontend.onrender.com/?success=true`);
+    res.redirect(`http://www.michealken30.com.ng/?success=true`);
   } catch (error) {
     res.status(500).json({ success: false, message: "Server error" });
   }
@@ -191,7 +191,7 @@ const requestPasswordReset = async (req, res) => {
 
     await user.save();
 
-    const resetLink = `https://alpha-furniture-frontend.onrender.com/reset-password/${resetToken}`;
+    const resetLink = `http://www.michealken30.com.ng/reset-password/${resetToken}`;
     await sendEmail(
       email,
       "Password Reset",
