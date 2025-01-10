@@ -15,13 +15,6 @@ spec:
     - host: www.michealken30.com.ng
       http:
         paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: backend-service
-                port:
-                  number: 4000
           - path: /
             pathType: Prefix
             backend:
