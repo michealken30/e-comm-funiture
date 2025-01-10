@@ -10,10 +10,10 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: wwww.michealken30.com.ng
+    - host: www.michealken30.com.ng
       http:
         paths:
-          - path: /api
+          - path: /
             pathType: Prefix
             backend:
               service:
