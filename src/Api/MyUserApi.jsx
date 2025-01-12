@@ -3,6 +3,8 @@ import axios from "axios";
 
 const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
+console.log(API_BASE_URI);
+
 export const useCreateMyUserRequest = () => {
   const CreateMyUserRequest = async (data) => {
     try {
