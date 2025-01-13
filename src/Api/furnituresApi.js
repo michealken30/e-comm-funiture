@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 
-const API_BASE_URI = "http://www.michealken30.com.ng/";
+const API_BASE_URI = "http://www.michealken30.com.ng";
 
 export const useGetFurniture = () => {
   const GetFurniture = async () => {
