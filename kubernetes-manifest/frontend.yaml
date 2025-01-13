@@ -24,8 +24,8 @@ spec:
         - name: frontend
           image: michealken30/frontend-js:latest
           env:
-            # - name: VITE_API_BASE_URI
-            #   value: "http://www.michealken30.com.ng/"
+            - name: VITE_API_BASE_URI
+              value: "http://www.michealken30.com.ng/"
             - name: VITE_FIREBASE_API_KEY
               valueFrom:
                 secretKeyRef:
