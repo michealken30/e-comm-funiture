@@ -1,9 +1,10 @@
 import { useMutation } from "react-query";
 import axios from "axios";
 
-const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
+const API_BASE_URI = "http://www.michealken30.com.ng/";
 
 console.log(API_BASE_URI);
+console.log(like);
 
 export const useCreateMyUserRequest = () => {
   const CreateMyUserRequest = async (data) => {
