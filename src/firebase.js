@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+console.log(import.meta.env.VITE_FIREBASE_API_KEY);
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "alpha-furniture-a86e8.firebaseapp.com",
@@ -13,6 +14,5 @@ const firebaseConfig = {
   appId: "1:91885031597:web:093c01e6856764cbdab624",
 };
 
-console.log(apiKey);
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
