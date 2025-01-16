@@ -2,10 +2,6 @@ import { useMutation } from "react-query";
 import axios from "axios";
 
 const API_BASE_URI = "http://www.michealken30.com.ng";
-const like = "Na wa";
-
-console.log(API_BASE_URI);
-console.log(like);
 
 export const useCreateMyUserRequest = () => {
   const CreateMyUserRequest = async (data) => {

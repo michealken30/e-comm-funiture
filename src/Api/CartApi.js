@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useMutation } from "react-query";
 import { StoreContext } from "../Context/StoreContext";
 
-const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
+const API_BASE_URI = "http://www.michealken30.com.ng";
 
 export const useAddToCart = () => {
   const { token, setCartItems, cartItems } = useContext(StoreContext);
