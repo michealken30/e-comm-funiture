@@ -5,7 +5,7 @@ import { StoreContext } from "../../Context/StoreContext";
 import { Link } from "react-router-dom";
 import { usePlaceOrder } from "../../Api/Orders";
 
-const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
+const API_BASE_URI = "http://www.michealken30.com.ng";
 
 const RightCheckout = () => {
   const { products, refetch } = useGetFurniture();

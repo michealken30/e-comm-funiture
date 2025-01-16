@@ -3,7 +3,7 @@ import "./LeftCart.css";
 import { AiOutlineDelete } from "react-icons/ai";
 import { StoreContext } from "../../Context/StoreContext";
 
-const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
+const API_BASE_URI = "http://www.michealken30.com.ng";
 
 const LeftCart = ({
   addCart,

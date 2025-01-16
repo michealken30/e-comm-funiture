@@ -1,7 +1,7 @@
 import React from "react";
 import "./LeftDetailCard.css";
 
-const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
+const API_BASE_URI = "http://www.michealken30.com.ng";
 
 const LeftDetailCard = ({ item }) => {
   return (
