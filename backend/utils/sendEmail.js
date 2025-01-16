@@ -13,9 +13,6 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-console.log(user);
-console.log(pass);
-
 export const sendEmail = (to, subject, text) => {
   const mailOptions = {
     from: process.env.EMAIL,
