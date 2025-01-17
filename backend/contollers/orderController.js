@@ -2,7 +2,10 @@ import orderModel from "../models/orderModel.js";
 import User from "../models/userModels.js";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(
+  "sk_test_51OxWPq02FNxgPW4uJ8CuqZRF0MUzMJtaepViCCmsDwDOTMa8rLhkUhol68J8A0LFBAntBQR1ZOE6m1lVPbkOZU7A00HsMHsGzz"
+);
 
 const placeOrder = async (req, res) => {
   // const frontend_url = "https://alpha-furniture-frontend.onrender.com";
