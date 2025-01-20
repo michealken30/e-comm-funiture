@@ -6,7 +6,7 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBfdzl6SgXbN93Yyr2WEILRaOxPKx - rojo",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: "alpha-furniture-a86e8.firebaseapp.com",
   projectId: "alpha-furniture-a86e8",
   storageBucket: "alpha-furniture-a86e8.appspot.com",
@@ -16,3 +16,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
+
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
