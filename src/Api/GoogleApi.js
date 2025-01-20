@@ -3,7 +3,7 @@ import { app } from "../firebase";
 import { useMutation } from "react-query";
 import axios from "axios";
 
-const API_BASE_URI = "http://www.michealken30.com.ng";
+const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
 export const useGoogleAuth = () => {
   const googleAuthRequest = async () => {

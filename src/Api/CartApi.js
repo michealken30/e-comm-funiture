@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useMutation } from "react-query";
 import { StoreContext } from "../Context/StoreContext";
 
-const API_BASE_URI = "http://www.michealken30.com.ng";
+const API_BASE_URI = "https://alpha-furniture-backend.onrender.com";
 
 export const useAddToCart = () => {
   const { token, setCartItems, cartItems } = useContext(StoreContext);
