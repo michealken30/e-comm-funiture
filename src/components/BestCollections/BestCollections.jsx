@@ -3,7 +3,7 @@ import "./BestCollections.css";
 import { CiHeart } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
-const API_BASE_URI = "http://www.michealken30.com.ng";
+const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
 const BestCollections = ({ title, data, refetch, best, isLoading }) => {
   useEffect(() => {

@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSearchFurniture } from "../../Api/furnituresApi";
 import { StoreContext } from "../../Context/StoreContext";
 
-const API_BASE_URI = "http://www.michealken30.com.ng";
+const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 
 const ProductMain = ({ filters, setFilters }) => {
   const { products, isLoading, refetch } = useSearchFurniture(filters);

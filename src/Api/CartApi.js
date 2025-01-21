@@ -3,8 +3,7 @@ import { useContext } from "react";
 import { useMutation } from "react-query";
 import { StoreContext } from "../Context/StoreContext";
 
-const API_BASE_URI = "https://alpha-furniture-backend.onrender.com";
-
+const API_BASE_URI = import.meta.env.VITE_API_BASE_URI;
 export const useAddToCart = () => {
   const { token, setCartItems, cartItems } = useContext(StoreContext);
   const addTocart = async (itemId) => {
