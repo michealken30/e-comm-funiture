@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ecomm-backend-apps
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - environment: dev
+                - environment: prod
+          - clusters:
+              selector:
+                matchLabels:
+                  argocd.argoproj.io/secret-type: cluster
+  template:
+    metadata:
+      name: "backend-{{environment}}-{{name}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/michealken30/e-comm-funiture.git
+        targetRevision: main
+        path: kubernetes-manifest/backend
+      destination:
+        server: "{{server}}"
+        namespace: "ecomm-{{environment}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

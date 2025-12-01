@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ecomm-database-apps
+  namespace: argocd
+spec:
+  generators:
+    - clusters:
+        selector:
+          matchLabels:
+            argocd.argoproj.io/secret-type: cluster
+  template:
+    metadata:
+      name: "database-{{name}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/michealken30/e-comm-funiture.git
+        targetRevision: main
+        path: kubernetes-manifest/database
+      destination:
+        server: "{{server}}"
+        namespace: ecomm-db
+      syncPolicy:
+        automated:
+          prune: false
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
